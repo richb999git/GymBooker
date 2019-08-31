@@ -1,0 +1,211 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 0px;
+    background-color: #ebecee; /* lightblue; */
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+/* My custom CSS*/
+.hrCalendar {
+    width: 100%;
+    color: gray;
+    height: 1px;
+    background-color: gray;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.fixed-panel {
+    min-height: 270px;
+    max-height: 270px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    font-weight: bold;
+    padding: 3px;
+}
+
+/*.fixed-panel:hover { background-color: aqua; } */
+
+a:hover { text-decoration: none; } /* for class booking screen */
+
+/*.sel:hover {
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-color: aqua;
+    cursor: pointer;
+}*/
+
+#spinner1 {
+    color: #b200ff;
+}
+
+.title-smaller {
+    font-size: 14px;
+}
+
+#prevButton a, #nextButton a {
+    text-decoration: none;
+    color: white;
+}
+
+#prevButton:hover, #nextButton:hover {
+    color: black;
+}
+
+.text-black { color: black;}
+.text-white { color: white;}
+.m-all-0 { margin: 0; }
+.mb-0 { margin-bottom: 0px; }
+.mb-1 { margin-bottom: 1px; }
+.mb-6 { margin-bottom: 6px; }
+.mb-50 { margin-bottom: 50px; }
+.mt-1 { margin-top: 1px; }
+
+.rounded {
+    border-radius: 24px;
+}
+
+.spinner-centre {
+    position: fixed; 
+    left: 50%; 
+    bottom: 50%; 
+    z-index: 9;
+}
+
+.max-width80 {
+    max-width: 80px;
+}
+
+.pad0 { padding: 0;}
+.fullwidth { width: 100%;}
+
+.fixed-pic-panel {
+    sbackground-color: aqua;
+    swidth: 100%;
+    sheight: 75%;
+    soverflow-x: hidden;
+}
+
+.fixed-text-panel {
+    background-color: aqua;
+    swidth: 100%;
+    sheight: 300%;
+    padding: 50px;
+    
+}
+
+
+.flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: DodgerBlue;
+
+}
+
+.flex-container .box {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
+}
+ 
+.box-centre {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.width50Centre {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.width75Centre {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.width100 {
+    width: 100%;
+}
+
+
+/* Image zoom effect */
+.img-hover-zoom {
+    width: 350px;
+    overflow: hidden;
+}
+
+.img-hover-zoom img {
+    transition: transform .5s ease;
+}
+
+.img-hover-zoom:hover img {
+    transform: scale(1.05);
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.marginRL10 {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.timetableDropdownChoice {
+    margin-left: 170px;
+    font-size: 15px;
+    padding: 6px;
+    margin-bottom: 0;
+}
+
+.smallScreenHeight230 {
+    height: 230px;
+    margin-bottom: 0px;
+}
+
+.dodgerBlueBackground {
+    background-color: DodgerBlue;
+}
+
+.min-width {
+    min-width:600px;
+}
+
+.max-width100 {
+    max-width: 100%;
+}
+
+.min-width100 {
+    min-width: 100%;
+}

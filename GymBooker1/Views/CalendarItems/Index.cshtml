@@ -1,0 +1,290 @@
+﻿@* Show class timetable  *@
+@* Controller: CalendarItemsController  *@
+
+@model IEnumerable<GymBooker1.Models.CalendarItem>
+
+@{
+    ViewBag.Title = "BOOK A FITNESS CLASS";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{
+    var a = Model.ToArray();
+    DateTime prev = DateTime.Now;
+    DateTime next = DateTime.Now;
+    if (a.Length > 0)
+    {
+        prev = ViewBag.ClassDate.AddDays(-7) <= DateTime.Now.Date ? DateTime.Now : ViewBag.ClassDate.AddDays(-7);
+        next = ViewBag.ClassDate.AddDays(7);
+    }
+}
+
+
+<br />
+<div class="dropdown pull-left">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Choose class type
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li onClick="buttonClick()">@Html.ActionLink("ALL", "Index", new { fitnessClass = "ALL" })</li>
+        @foreach (var item in ViewBag.GymClasses)
+        {
+            <li onClick="buttonClick()">@Html.ActionLink((string)item.Name, "Index", new { fitnessClass = item.Name })</li>
+        }
+    </ul>
+</div>
+
+<p class="timetableDropdownChoice" >
+      @ViewBag.fitnessClass
+</p>
+
+<div class="clearfix"></div>
+
+<br />
+@*Bootstrap 3
+    Using a list-inline with 4 columns of 2 to be able to show 8 columns across the screen *@
+
+<div>
+    @if (a.Length == 0)
+    {
+        <p>No classes</p>
+    }
+    else
+    {
+        if (a[0].GymClassTime.Date > DateTime.Now.AddDays(6).Date)
+        {
+            @*<button onClick="buttonClick()" id="prevButton" type="button" class="btn btn-info pull-left">@Html.ActionLink("PREVIOUS WEEK", "Index", new { classDate = prev.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] })</button>*@
+            @Html.ActionLink("PREVIOUS WEEK", "Index", new { classDate = prev.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "prevButton", @class = "btn btn-info pull-left", onClick = "buttonClick()" })
+        }
+
+        // if next < last date in timetable
+        if (next < a[a.Length - 1].GymClassTime)
+        {
+            @*<button id="nextButton" type="button" class="btn btn-info pull-right">@Html.ActionLink("NEXT WEEK", "Index", new { classDate = next.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { onClick = "buttonClick()" })</button>*@
+            @Html.ActionLink("NEXT WEEK", "Index", new { classDate = next.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "nextButton", @class = "btn btn-info pull-right", onClick = "buttonClick()" })
+        }
+    }
+
+</div>
+
+<br /><br /><br />
+
+
+<ul class="list-inline row">
+    @{ var j = 0; // 0 when sending with a from date. Else would need to get to the from date
+        DateTime DateInWeek = ViewBag.ClassDate;
+    }
+    @for (int day = 0; day < 7; day = day + 2)
+    {
+
+        <li class="col-md-3 col-xs-12 text-center" style="padding: 1px">
+
+            @for (int k = 0; k < 2; k++)
+            {
+                <div class="col-md-6 col-xs-12" style="padding: 2px;">
+
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title title-smaller">@DateInWeek.Date.ToString("ddd d MMM")</h2>
+                        </div>
+
+                        @{if (j >= a.Length || a[j].GymClassTime.Date != DateInWeek.Date) // check if end of data for the week or day
+                            {
+
+                                <hr class="hrCalendar" />
+                                <div class="sel">
+                                    <div class="panel-body fixed-panel">
+                                        <h6>No classes</h6>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                while (j < a.Length && a[j].GymClassTime.Date == DateInWeek.Date) // if the same date then keep looping
+                                {
+                                    <hr class="hrCalendar" />
+                                    <div class="sel" id="@a[j].GymClassId.Id" href='@Url.Action("ClassDescription", new { id = a[j].GymClassId.Id })'>
+                                        <div class="panel-body fixed-panel">
+                                            <p class="text-uppercase text-black mb-0"><b>@a[j].GymClassId.Name</b></p>
+                                            <p class="text-primary mb-1"><b>@a[j].GymClassTime.ToString("HH:mm tt").ToLower()</b></p>
+                                            <p class="text-primary mb-1"><b>(@a[j].Duration mins)</b></p>
+                                            <h6 class="text-black mb-0">@a[j].Instructor</h6>
+                                            <h6 class="text-black mt-1">@a[j].Hall</h6>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                // show Booked! if booked and a Cancel button
+                                                var strCurrentUserId = ViewBag.UserId;
+                                                int index = a[j].UserIds.IndexOf(strCurrentUserId);
+                                                if (index != -1)
+                                                {
+                                                    <p>You're booked in!</p>
+                                                    @Html.ActionLink("Cancel class", "CancelClass", new { id = a[j].Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
+                                                }
+                                                else
+                                                {
+                                                    int numInClass = a[j].UserIds == "" ? 0 : a[j].UserIds.Count(x => x == ',') + 1;
+                                                    if (numInClass >= a[j].MaxPeople)
+                                                    {
+                                                        <p class="">Fully Booked</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="invisible">-</p>
+                                                        @Html.ActionLink("Book Now", "BookClass", new { id = a[j].Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
+                                                    }
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Login to book", "../Account/Login", new { returnUrl = "/CalendarItems" }, new { @class = "btn btn-danger mb-6 rounded" })
+                                            }
+                                            @Html.ActionLink("Details", "ClassDescription", new { id = a[j].Id }, new { @class = "btn btn-primary mb-6 rounded", onClick = "buttonClick()" })
+                                        </div>
+                                    </div>
+
+                                    j = j + 1;
+                                }
+                            }
+
+
+                        }
+
+                    </div>
+                </div>
+
+                DateInWeek = DateInWeek.AddDays(1);
+            }
+
+        </li>
+    }
+
+</ul>
+
+
+
+
+@*<ul class="list-inline row">
+
+    @{
+        int j = 0;
+        DateTime lastDate = DateTime.Now;
+    }
+    @for (int day = 0; day < 7; day = day + 2)
+    {
+
+        <li class="col-md-3 col-xs-12 text-center" style="padding: 1px">
+
+            @for (int k = 0; k < 2; k++)
+            {
+                <div class="col-md-6 col-xs-12" style="padding: 2px;">
+
+
+
+                    @{if (j < a.Length)
+                        {
+                            lastDate = a[j].GymClassTime;
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title title-smaller">@lastDate.ToString("ddd d MMM")</h2>
+                                </div>
+
+
+
+
+
+                                @* check not end of list of classes needed *@
+@*while (j < a.Length && a[j].GymClassTime.Date == lastDate.Date) // if the same time then keep looping
+                                    {
+                                        <hr class="hrCal" />
+                                        <div class="sel">
+                                            <div class="panel-body fixed-panel">
+                                                <p class="text-uppercase"><b>@a[j].GymClassId.Name</b></p>
+                                                <p class="text-primary"><b>@a[j].GymClassTime.ToString("HH:mm tt").ToLower()</b></p>
+                                                <p class="text-primary"><b>(@a[j].Duration mins)</b></p>
+                                                <h6>@a[j].Instructor</h6>
+                                                <h6>@a[j].Hall</h6>
+                                            </div>
+                                        </div>
+
+                                        j = j + 1;
+                                    }
+
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+
+            </li>
+        }
+    </ul>*@
+
+
+
+
+
+
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GymClassTime.Date)
+            </th>
+            <th>
+                Class name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GymClassTime.TimeOfDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Instructor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hall)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{
+                        var date = item.GymClassTime.ToString("ddd d MMM");
+                        @Html.DisplayFor(modelItem => date)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GymClassId.Name)
+                </td>
+                <td>
+                    @{
+                        var time = item.GymClassTime.ToString("HH:mm tt").ToLower();
+                        @Html.DisplayFor(modelItem => time)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration) mins
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Instructor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hall)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>*@

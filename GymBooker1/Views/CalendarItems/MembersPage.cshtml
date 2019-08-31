@@ -1,0 +1,72 @@
+﻿@* Member page showing classes booked  *@
+@* Controller: CalendarItemsController  *@
+
+@model IEnumerable<GymBooker1.Models.CalendarItem>
+
+@*<h1 id="spinner1" class="show spinner-centre">
+        <i class="fa fa-refresh fa-spin"></i> @*Need the font awesome css - v small though. See _Layout.cshtml
+    </h1>*@
+
+<h2>Members Page</h2>
+<br />
+<h2>Your booked classes:</h2>
+
+
+<table class="table table-bordered table-hover table-condensed">
+    <tr class="label-primary text-white">
+        <th>
+            @Html.DisplayNameFor(model => model.GymClassTime.Date)
+        </th>
+        <th>
+            Class name
+        </th>
+        <th>
+            Time
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Instructor)
+        </th>
+        <th>
+            Studio
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="background-color: white;">
+            <td>
+                @{
+                    var date = item.GymClassTime.ToString("ddd d MMM");
+                    @Html.DisplayFor(modelItem => date)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GymClassId.Name)
+            </td>
+            <td>
+                @{
+                    var time = item.GymClassTime.ToString("HH:mm tt").ToLower();
+                    @Html.DisplayFor(modelItem => time)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration) mins
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instructor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hall)
+            </td>
+            <td class="max-width80">
+                @Html.ActionLink("Cancel", "CancelClass", new { id = item.Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
+                @Html.ActionLink("Details", "ClassDescription", new { id = item.Id }, new { @class = "btn btn-primary mb-6 rounded", onClick = "buttonClick()" })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,64 @@
+﻿@* Show description of a particular class  *@
+@* Controller: CalendarItemsController  *@
+
+@model GymBooker1.Models.CalendarItem
+
+@section containerFluid
+{
+
+    <div>
+
+        <div class="text-center width75Centre">
+            <h3>@Model.GymClassId.Name</h3>
+            <h4>@Model.GymClassId.Description</h4>
+            <h4>Instructor: @Model.Instructor</h4>
+            <h4>@Model.Hall</h4>
+            <h4>@Model.GymClassTime</h4>
+            <h4>Maximum of @Model.MaxPeople people in this class</h4>
+            <h3>Enjoy!</h3>
+            
+            
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                // show Booked! if booked and a Cancel button
+                var strCurrentUserId = ViewBag.UserId;
+                int index = Model.UserIds.IndexOf(strCurrentUserId);
+                if (index != -1)
+                {
+                    <h4>You're booked in!</h4>
+                    @Html.ActionLink("Cancel class", "CancelClass", new { id = Model.Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
+                }
+                else
+                {
+                    int numInClass = Model.UserIds == "" ? 0 : Model.UserIds.Count(x => x == ',') + 1;
+                    if (numInClass >= Model.MaxPeople)
+                    {
+                        <h2 class="text-danger">Sorry! This class is fully booked.</h2>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Book Now", "BookClass", new { id = Model.Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
+                    }
+                }
+
+            }
+            else
+            {
+                @Html.ActionLink("Login to book", "../Account/Login", new { returnUrl = "/CalendarItems/ClassDescription/" + Model.Id }, new { @class = "btn btn-danger mb-6 rounded" })
+            }
+            
+
+
+            <br />
+            <div class="hidden-xs win-width600">
+                <img width="600" src=@ViewBag.pic0 alt=@Model.GymClassId.Name />
+            </div>
+            <div class="visible-xs">
+                <img class="max-width100" src=@ViewBag.pic0 alt=@Model.GymClassId.Name />
+            </div>
+        </div>
+
+    </div>
+
+}
