@@ -209,3 +209,14 @@ a:hover { text-decoration: none; } /* for class booking screen */
 .min-width100 {
     min-width: 100%;
 }
+
+.description-box {
+    margin-left: auto;
+    width: 33%;
+    margin-right: auto;
+    border: black;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 6px;
+    padding: 12px;
+}
