@@ -6,7 +6,7 @@
 
 <div>
 
-    <div class="text-center width75Centre">
+    <div class="text-center width75Centreg">
 
         <h3>@Model.GymClassId.Name</h3>
 
@@ -35,7 +35,7 @@
         </div>
 
         <h3>Enjoy!</h3>
-
+        
 
 
         @if (User.Identity.IsAuthenticated)
@@ -46,7 +46,8 @@
             if (index != -1)
             {
                 <h4>You're aleady booked in!</h4>
-                @Html.ActionLink("Cancel class", "CancelClass", new { id = Model.Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
+                <br />
+                @Html.ActionLink("Cancel class", "CancelClass", new { id = Model.Id }, new { @class = "btn-lg btn-danger mb-6 rounded", onClick = "buttonClick()" })
             }
             else
             {
@@ -57,27 +58,29 @@
                 }
                 else
                 {
-                    @Html.ActionLink("Book Now", "BookClass", new { id = Model.Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
+                    <br />
+                    @Html.ActionLink("Book Now", "BookClass", new { id = Model.Id }, new { @class = "btn-lg btn-danger mb-6 rounded", onClick = "buttonClick()" })
                 }
             }
 
         }
         else
         {
-            @Html.ActionLink("Login to book", "../Account/Login", new { returnUrl = "/CalendarItems/ClassDescription/" + Model.Id }, new { @class = "btn btn-danger mb-6 rounded" })
+            <br />
+            @Html.ActionLink("Login to book", "../Account/Login", new { returnUrl = "/CalendarItems/ClassDescription/" + Model.Id }, new { @class = "btn-lg btn-danger mb-6 rounded" })
         }
 
 
-
         <br />
-        <div class="hidden-xs win-width600">
-            <img width="600" src=@ViewBag.pic0 alt=@Model.GymClassId.Name />
-        </div>
-        <div class="visible-xs">
-            <img class="max-width100" src=@ViewBag.pic0 alt=@Model.GymClassId.Name />
-        </div>
+        <br />
     </div>
 
 </div>
 
+        <div class="hidden-xs text-center">
+            <img class="max-width100" width="1200" src=@ViewBag.pic0 alt=@Model.GymClassId.Name />
+        </div>
+        <div class="visible-xs">
+            <img class="max-width100" src=@ViewBag.pic0 alt=@Model.GymClassId.Name />
+        </div>
 

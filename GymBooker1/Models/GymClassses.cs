@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -40,14 +41,31 @@ namespace GymBooker1.Models
     public class StdGymClassTimetable
     {
         public int Id { get; set; }
-        public GymClass GymClassId { get; set; }
+        public virtual GymClass GymClassId { get; set; }
+
+        [StringLength(20, MinimumLength = 2)]
+        [Required]
         public string Instructor { get; set; } = "Jenny Body";
+
+        [StringLength(12, MinimumLength = 2)]
+        [Required]
         public string Hall { get; set; } = "Hall 1";
-        public int? Duration { get; set; } = 60; // minutes
-        public int? Day { get; set; }
-        public int? Hour { get; set; }
-        public int? Minute { get; set; }
-        public int? MaxPeople { get; set; } = 20;
+
+        [Range(20, 1440)]
+        public int Duration { get; set; } = 60; // minutes
+
+        [Range(0, 6)]
+        public int Day { get; set; }
+
+        [Range(0, 23)]
+        public int Hour { get; set; }
+
+        [Range(0, 59)]
+        public int Minute { get; set; }
+
+        [Range(1, 100)]
+        public int MaxPeople { get; set; } = 20;
+
         public bool Deleted { get; set; } = false;
     }
 
@@ -65,7 +83,7 @@ namespace GymBooker1.Models
 
 
 
-    public class GetPics
+    public static class GetPics
     {
         public static string[] Get2Pics(string Name)
         { 

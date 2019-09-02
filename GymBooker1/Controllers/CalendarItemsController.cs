@@ -206,7 +206,11 @@ namespace GymBooker1.Views
         }
 
 
+
+        ////////////// ADMIN AREAS FOR UPDATING TIMETABLE - NOT IMPLEMENTED - SEE STD TIMETABLE /////////////////
+
         // GET: CalendarItems/Details/5
+        [Authorize(Roles = "Admin2")]
         public ActionResult Details(string id)
         {
             int idInt;
@@ -227,6 +231,7 @@ namespace GymBooker1.Views
         }
 
         // GET: CalendarItems/Create
+        [Authorize(Roles = "Admin2")]
         public ActionResult Create()
         {
             //ViewBag.Classes2 = Models.GymClasses; //"Bob"; // GymClasses;
@@ -239,6 +244,7 @@ namespace GymBooker1.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin2")]
         //public ActionResult Create([Bind(Include = "Id,Duration,Hall,UserIds,GymClassTime")] CalendarItem calendarItem)
         public ActionResult Create([Bind(Include = "Duration,Hall")] CalendarItem calendarItem)
         {
@@ -255,6 +261,7 @@ namespace GymBooker1.Views
         }
 
         // GET: CalendarItems/Edit/5
+        [Authorize(Roles = "Admin2")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -274,6 +281,7 @@ namespace GymBooker1.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin2")]
         public ActionResult Edit([Bind(Include = "Id,Duration,Hall,UserIds,GymClassTime")] CalendarItem calendarItem)
         {
             if (ModelState.IsValid)
@@ -286,6 +294,7 @@ namespace GymBooker1.Views
         }
 
         // GET: CalendarItems/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -303,6 +312,7 @@ namespace GymBooker1.Views
         // POST: CalendarItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin2")]
         public ActionResult DeleteConfirmed(string id)
         {
             CalendarItem calendarItem = db.CalendarItems.Find(id);

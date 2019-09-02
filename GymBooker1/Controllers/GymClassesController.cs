@@ -60,17 +60,17 @@ namespace GymBooker1.Views
 
 
 
-        // ADMIN ROUTES TO UPDATE GYM CLASSES. NOT IMPLEMENTED YET. ///////////////////////////////////////////////////////////////////////
+        ///////////////// ADMIN ROUTES TO UPDATE GYM CLASSES. NOT LIKELY TO IMPLEMENT. ///////////////////////////
 
         // GET: GymClasses
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin2")]
         public ActionResult Index()
         {
             return View(db.GymClasses.ToList());
         }
 
         // GET: GymClasses/Details/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin2")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -86,7 +86,7 @@ namespace GymBooker1.Views
         }
 
         // GET: GymClasses/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin2")]
         public ActionResult Create()
         {
             return View();
@@ -97,7 +97,7 @@ namespace GymBooker1.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin2")]
         public ActionResult Create([Bind(Include = "Id,Name,Description")] GymClass gymClass)
         {
             if (ModelState.IsValid)
@@ -111,7 +111,7 @@ namespace GymBooker1.Views
         }
 
         // GET: GymClasses/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin2")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -131,7 +131,7 @@ namespace GymBooker1.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin2")]
         public ActionResult Edit([Bind(Include = "Id,Name,Description")] GymClass gymClass)
         {
             if (ModelState.IsValid)
@@ -144,7 +144,7 @@ namespace GymBooker1.Views
         }
 
         // GET: GymClasses/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin2")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -162,7 +162,7 @@ namespace GymBooker1.Views
         // POST: GymClasses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin2")]
         public ActionResult DeleteConfirmed(int id)
         {
             GymClass gymClass = db.GymClasses.Find(id);
