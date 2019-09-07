@@ -1,6 +1,6 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 0px;
+    padding-bottom: 0;
     background-color: #ebecee; /* lightblue; */
     font-family: Tahoma, Geneva, sans-serif;
 }
@@ -78,8 +78,9 @@ a:hover { text-decoration: none; } /* for class booking screen */
 .text-black { color: black;}
 .text-white { color: white;}
 .m-all-0 { margin: 0; }
-.mb-0 { margin-bottom: 0px; }
+.mb-0 { margin-bottom: 0; }
 .mb-1 { margin-bottom: 1px; }
+.mb-3 { margin-bottom: 3px; }
 .mb-6 { margin-bottom: 6px; }
 .mb-50 { margin-bottom: 50px; }
 .mt-1 { margin-top: 1px; }
@@ -102,17 +103,17 @@ a:hover { text-decoration: none; } /* for class booking screen */
 .pad0 { padding: 0;}
 .fullwidth { width: 100%;}
 
-.fixed-pic-panel {
-    sbackground-color: aqua;
-    swidth: 100%;
-    sheight: 75%;
-    soverflow-x: hidden;
-}
+/*.fixed-pic-panel {
+    background-color: aqua;
+    width: 100%;
+    height: 75%;
+    overflow-x: hidden;
+}*/
 
 .fixed-text-panel {
     background-color: aqua;
-    swidth: 100%;
-    sheight: 300%;
+    /*width: 100%;
+    height: 300%;*/
     padding: 50px;
     
 }
@@ -191,7 +192,7 @@ a:hover { text-decoration: none; } /* for class booking screen */
 
 .smallScreenHeight230 {
     height: 230px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .dodgerBlueBackground {
@@ -219,4 +220,8 @@ a:hover { text-decoration: none; } /* for class booking screen */
     border-width: thin;
     border-radius: 6px;
     padding: 12px;
+}
+
+.big-checkbox {
+    transform:scale(1.7);
 }

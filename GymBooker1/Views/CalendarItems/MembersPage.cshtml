@@ -45,7 +45,7 @@
                 }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GymClassId.Name)
+                @Html.DisplayFor(modelItem => item.GymClass.Name)
             </td>
             <td>
                 @{
@@ -63,8 +63,8 @@
                 @Html.DisplayFor(modelItem => item.Hall)
             </td>
             <td class="max-width80">
-                @Html.ActionLink("Cancel", "CancelClass", new { id = item.Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
-                @Html.ActionLink("Details", "ClassDescription", new { id = item.Id }, new { @class = "btn btn-primary mb-6 rounded", onClick = "buttonClick()" })
+                @Html.ActionLink("Cancel", "CancelClass", new { id = item.Id }, new { @class = "btn btn-sm btn-danger mb-1 rounded", onClick = "buttonClick()" })
+                @Html.ActionLink("Details", "ClassDescription", new { id = item.Id }, new { @class = "btn btn-sm btn-primary mb-1 rounded", onClick = "buttonClick()" })
             </td>
         </tr>
     }

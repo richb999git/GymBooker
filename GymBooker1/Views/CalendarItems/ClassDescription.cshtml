@@ -8,10 +8,10 @@
 
     <div class="text-center width75Centreg">
 
-        <h3>@Model.GymClassId.Name</h3>
+        <h3>@Model.GymClass.Name</h3>
 
         <div class="hidden-xs">
-            <h4>@Model.GymClassId.Description</h4>
+            <h4>@Model.GymClass.Description</h4>
             <div class="description-box">
                 <div class="text-left text-primary">
                     <h4>Instructor: @Model.Instructor</h4>
@@ -23,7 +23,7 @@
         </div>
 
         <div class="visible-xs">
-            <h4 class="text-justify">@Model.GymClassId.Description</h4>
+            <h4 class="text-justify">@Model.GymClass.Description</h4>
             <div class="text-primary">
                 <div class="text-left">
                     <h4>Instructor: @Model.Instructor</h4>
@@ -78,9 +78,9 @@
 </div>
 
         <div class="hidden-xs text-center">
-            <img class="max-width100" width="1200" src=@ViewBag.pic0 alt=@Model.GymClassId.Name />
+            <img class="max-width100" width="1200" src=@ViewBag.pic0 alt=@Model.GymClass.Name />
         </div>
         <div class="visible-xs">
-            <img class="max-width100" src=@ViewBag.pic0 alt=@Model.GymClassId.Name />
+            <img class="max-width100" src=@ViewBag.pic0 alt=@Model.GymClass.Name />
         </div>
 

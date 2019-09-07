@@ -15,12 +15,14 @@ namespace GymBooker1.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: StdGymClassTimetables
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.StdGymClassTimetables.OrderBy(x => x.Day).ThenBy(x => x.Hour).ThenBy(x => x.Minute).ToList());
         }
 
         // GET: StdGymClassTimetables/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,8 +38,10 @@ namespace GymBooker1.Controllers
         }
 
         // GET: StdGymClassTimetables/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            ViewBag.ClassId = new SelectList(db.GymClasses, "Id", "Name");//the soure of dropdownlist
             return View();
         }
 
@@ -46,7 +50,8 @@ namespace GymBooker1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Instructor,Hall,Duration,Day,Hour,Minute,MaxPeople,Deleted")] StdGymClassTimetable stdGymClassTimetable)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Create([Bind(Include = "Id,Instructor,Hall,Duration,Day,Hour,Minute,MaxPeople,Deleted,GymClassId")] StdGymClassTimetable stdGymClassTimetable)
         {
             if (ModelState.IsValid)
             {
@@ -54,11 +59,12 @@ namespace GymBooker1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.ClassId = new SelectList(db.GymClasses, "Id", "Name");//the soure of dropdownlist
             return View(stdGymClassTimetable);
         }
 
         // GET: StdGymClassTimetables/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -70,6 +76,8 @@ namespace GymBooker1.Controllers
             {
                 return HttpNotFound();
             }
+ 
+            ViewBag.ClassId = new SelectList(db.GymClasses, "Id", "Name"); //the soure of dropdownlist
             return View(stdGymClassTimetable);
         }
 
@@ -78,7 +86,8 @@ namespace GymBooker1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Instructor,Hall,Duration,Day,Hour,Minute,MaxPeople,Deleted")] StdGymClassTimetable stdGymClassTimetable)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit([Bind(Include = "Id,Instructor,Hall,Duration,Day,Hour,Minute,MaxPeople,Deleted,GymClassId")] StdGymClassTimetable stdGymClassTimetable)
         {
             if (ModelState.IsValid)
             {
@@ -86,10 +95,15 @@ namespace GymBooker1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(stdGymClassTimetable);
+
+            ViewBag.ClassId = new SelectList(db.GymClasses, "Id", "Name"); //the soure of dropdownlist
+            return View(stdGymClassTimetable); //the soure of dropdownlist
         }
 
+
+
         // GET: StdGymClassTimetables/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -101,12 +115,16 @@ namespace GymBooker1.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Time = DateTime.Now.Date + new TimeSpan(stdGymClassTimetable.Hour, stdGymClassTimetable.Minute, 0);
+
             return View(stdGymClassTimetable);
         }
 
         // POST: StdGymClassTimetables/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             StdGymClassTimetable stdGymClassTimetable = db.StdGymClassTimetables.Find(id);

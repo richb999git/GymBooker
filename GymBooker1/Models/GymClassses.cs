@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -32,6 +33,8 @@ namespace GymBooker1.Models
     public class GymClass
     {
         public int Id { get; set; }
+
+        [Display(Name = "Class Name")]
         public string Name { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
@@ -41,7 +44,11 @@ namespace GymBooker1.Models
     public class StdGymClassTimetable
     {
         public int Id { get; set; }
-        public virtual GymClass GymClassId { get; set; }
+
+        [ForeignKey("GymClass")]
+        [Display(Name = "Class Id")]
+        public int GymClassId { get; set; }
+        public virtual GymClass GymClass { get; set; } // navigation property for foreign key
 
         [StringLength(20, MinimumLength = 2)]
         [Required]
@@ -55,7 +62,7 @@ namespace GymBooker1.Models
         public int Duration { get; set; } = 60; // minutes
 
         [Range(0, 6)]
-        public int Day { get; set; }
+        public DayOfWeek Day { get; set; }
 
         [Range(0, 23)]
         public int Hour { get; set; }
@@ -64,15 +71,21 @@ namespace GymBooker1.Models
         public int Minute { get; set; }
 
         [Range(1, 100)]
+        [Display(Name = "Max People")]
         public int MaxPeople { get; set; } = 20;
 
+        [Display(Name = "Cancelled")]
         public bool Deleted { get; set; } = false;
     }
 
     public class CalendarItem
     {
         public int Id { get; set; }
-        public virtual GymClass GymClassId { get; set; }  // by using GymClass as Type it makes it a Foreign Key. 
+
+        [ForeignKey("GymClass")]
+        public int GymClassId { get; set; }
+        public virtual GymClass GymClass { get; set; } // navigation property for foreign key
+
         public string Instructor { get; set; }
         public int? Duration { get; set; }  // minutes
         public string Hall { get; set; }

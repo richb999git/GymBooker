@@ -193,12 +193,15 @@
     <Compile Include="Migrations\201909022148302_DataAnnotations2.Designer.cs">
       <DependentUpon>201909022148302_DataAnnotations2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909041907062_ChangeForeignKeyProgramming.cs" />
+    <Compile Include="Migrations\201909041907062_ChangeForeignKeyProgramming.Designer.cs">
+      <DependentUpon>201909041907062_ChangeForeignKeyProgramming.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\GymClassses.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MyUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\CalendarItemsController.cs" />
@@ -377,7 +380,6 @@
     <Content Include="Views\GymClasses\Categories.cshtml" />
     <Content Include="Views\StdGymClassTimetables\Create.cshtml" />
     <Content Include="Views\StdGymClassTimetables\Delete.cshtml" />
-    <Content Include="Views\StdGymClassTimetables\Details.cshtml" />
     <Content Include="Views\StdGymClassTimetables\Edit.cshtml" />
     <Content Include="Views\StdGymClassTimetables\Index.cshtml" />
   </ItemGroup>
@@ -402,6 +404,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909022148302_DataAnnotations2.resx">
       <DependentUpon>201909022148302_DataAnnotations2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909041907062_ChangeForeignKeyProgramming.resx">
+      <DependentUpon>201909041907062_ChangeForeignKeyProgramming.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

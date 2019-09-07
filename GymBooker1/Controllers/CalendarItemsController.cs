@@ -43,7 +43,7 @@ namespace GymBooker1.Views
             gymClass.UserIds = string.Join(",", gymClassAttenders.Select(n => n.ToString()).ToArray());
             db.SaveChanges();
 
-            var pics2 = GetPics.Get2Pics(gymClass.GymClassId.Name);
+            var pics2 = GetPics.Get2Pics(gymClass.GymClass.Name);
 
             ViewBag.pic0 = "/Content/Images/Classes/" + pics2[0];
             ViewBag.pic1 = "/Content/Images/Classes/" + pics2[1];
@@ -96,7 +96,7 @@ namespace GymBooker1.Views
             gymClass.UserIds = string.Join(",", gymClassAttenders.Select(n => n.ToString()).ToArray());
             db.SaveChanges();
 
-            var pics2 = GetPics.Get2Pics(gymClass.GymClassId.Name);
+            var pics2 = GetPics.Get2Pics(gymClass.GymClass.Name);
 
             ViewBag.pic0 = "/Content/Images/Classes/" + pics2[0];
             ViewBag.pic1 = "/Content/Images/Classes/" + pics2[1];
@@ -127,7 +127,7 @@ namespace GymBooker1.Views
 
             ViewBag.UserId = User.Identity.GetUserId();
 
-            var pics2 = GetPics.Get2Pics(gymClass.GymClassId.Name);
+            var pics2 = GetPics.Get2Pics(gymClass.GymClass.Name);
 
             ViewBag.pic0 = "/Content/Images/Classes/" + pics2[0];
             ViewBag.pic1 = "/Content/Images/Classes/" + pics2[1];
@@ -160,7 +160,7 @@ namespace GymBooker1.Views
                 Calendar = db.CalendarItems
                     .Where(d => d.GymClassTime >= dateFrom)
                     //.Where(d => d.GymClassTime <= dateTo)
-                    .Where(d => d.GymClassId.Name == fitnessClass)
+                    .Where(d => d.GymClass.Name == fitnessClass)
                     .OrderBy(d => d.GymClassTime).ToList();
             }
             else
@@ -251,7 +251,6 @@ namespace GymBooker1.Views
             if (ModelState.IsValid)
             {
                 calendarItem.UserIds = "";
-                //calendarItem.GymClassId = 1;
                 db.CalendarItems.Add(calendarItem);
                 db.SaveChanges();
                 return RedirectToAction("Index");

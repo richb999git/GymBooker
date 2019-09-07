@@ -12,10 +12,9 @@ namespace GymBooker1.Controllers
         {
             ApplicationDbContext db = new ApplicationDbContext();
             DateTime DateNow = DateTime.Now; // take date now so it is locked in (in case near midnight)
-            // .Include("GymClassId") to pull the foreign key data if type of list is not specified (by default it doesn't because of lazy loading)
-            List<CalendarItem> TimetableOld = db.CalendarItems.Include("GymClassId").OrderBy(x => x.GymClassTime).ToList<CalendarItem>();
+            List<CalendarItem> TimetableOld = db.CalendarItems.OrderBy(x => x.GymClassTime).ToList<CalendarItem>();
             List<CalendarItem> TimetableNew = new List<CalendarItem>();
-            List<StdGymClassTimetable> StdTimetable = db.StdGymClassTimetables.Include("GymClassId").ToList<StdGymClassTimetable>();
+            List<StdGymClassTimetable> StdTimetable = db.StdGymClassTimetables.ToList<StdGymClassTimetable>();
             if (!StdTimetable.Any()) return;
             if (!TimetableOld.Any())
             {
@@ -53,7 +52,8 @@ namespace GymBooker1.Controllers
             // create up to date calendar using std timetable as basis and old timetable as start
             void CreateTimetable(DateTime NextDate, int totalDays)
             {
-                int DayOfWeekOfFirstItem = (int)NextDate.DayOfWeek; // Enum: Sunday 0, Monday 1 etc Saturday 6
+                ///// DayOfWeek change
+                DayOfWeek DayOfWeekOfFirstItem = NextDate.DayOfWeek; // Enum: Sunday 0, Monday 1 etc Saturday 6
                 // Find first occurence of day of the week in the std timetable (or followng day if no classes on that day)
                 // either loop through from start to find the index
                 // add each item of the std timetable to the new timetable each day until + 28 days looping around the std timetable
@@ -63,34 +63,38 @@ namespace GymBooker1.Controllers
 
                 // int startPositionInStdTimetable = j; // not needed
                 // now loop through all items in standard timetable to end (to Saturday) then loop back to start (Sunday) then on to day before start (j-1)
-                int currentDayOfWeek = DayOfWeekOfFirstItem; // Sunday 0, Monday 1 etc Saturday 6
+                DayOfWeek currentDayOfWeek = DayOfWeekOfFirstItem; // Sunday 0, Monday 1 etc Saturday 6
 
                 for (int i = 0; i < totalDays; i++)  //loop through adding days to new timetable (35 days (7 + 28)) some of which may be taken from previous timetable
                 {
                     // j is std timetable array item number. Need to loop back to start when end is reached
                     while (j < StdTimetableArray.Count() && StdTimetableArray[j].Day == currentDayOfWeek) //loop through each day's classes and add to new timetable
                     {
-                        int Hour = (int)StdTimetableArray[j].Hour;
-                        int Minute = (int)StdTimetableArray[j].Minute;
-                        TimeSpan ts = new TimeSpan(Hour, Minute, 0);
-                        DateTime GymClassTime = NextDate.Date + ts;
-
-                        CalendarItem item = new CalendarItem
+                        if (StdTimetableArray[j].Deleted == false)
                         {
-                            GymClassId = StdTimetableArray[j].GymClassId,
-                            Instructor = StdTimetableArray[j].Instructor,
-                            Duration = StdTimetableArray[j].Duration,
-                            Hall = StdTimetableArray[j].Hall,
-                            UserIds = "",
-                            GymClassTime = GymClassTime,
-                            MaxPeople = StdTimetableArray[j].MaxPeople
-                        };
+                            int Hour = (int)StdTimetableArray[j].Hour;
+                            int Minute = (int)StdTimetableArray[j].Minute;
+                            TimeSpan ts = new TimeSpan(Hour, Minute, 0);
+                            DateTime GymClassTime = NextDate.Date + ts;
 
-                        TimetableNew.Add(item);
+                            CalendarItem item = new CalendarItem
+                            {
+                                GymClassId = StdTimetableArray[j].GymClassId,
+                                Instructor = StdTimetableArray[j].Instructor,
+                                Duration = StdTimetableArray[j].Duration,
+                                Hall = StdTimetableArray[j].Hall,
+                                UserIds = "",
+                                GymClassTime = GymClassTime,
+                                MaxPeople = StdTimetableArray[j].MaxPeople
+                            };
+
+                            TimetableNew.Add(item);
+                        }
+
                         j++;
                     }
                     currentDayOfWeek++;
-                    if (currentDayOfWeek == 7) currentDayOfWeek = 0;
+                    if (currentDayOfWeek > DayOfWeek.Saturday) currentDayOfWeek = 0;
                     NextDate = NextDate.AddDays(1);
                     // loop back to start of std timetable if end reached
                     if (j >= StdTimetableArray.Count()) j = 0;
