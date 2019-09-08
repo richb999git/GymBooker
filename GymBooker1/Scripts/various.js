@@ -20,3 +20,18 @@ window.addEventListener('beforeunload', function () {
     console.log("make spinner visible onbeforeunload");
     return false;
 }, false);
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var dateFormat = 'DD-MM-YYYY hh:mm a';
+    
+    $('.datetimepicker1').datetimepicker({
+        format: dateFormat,
+    });
+
+    // need this due an issue with validation checking
+    $.validator.methods.date = function (value, element) {
+        return this.optional(element) || moment(value, dateFormat, true).isValid();           
+    }
+    
+});

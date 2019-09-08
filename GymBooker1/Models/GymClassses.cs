@@ -86,14 +86,41 @@ namespace GymBooker1.Models
         public int GymClassId { get; set; }
         public virtual GymClass GymClass { get; set; } // navigation property for foreign key
 
+        [StringLength(20, MinimumLength = 2)]
+        [Required]
         public string Instructor { get; set; }
-        public int? Duration { get; set; }  // minutes
+
+        [Range(20, 1440)]
+        public int Duration { get; set; }  // minutes
+
+        [StringLength(12, MinimumLength = 2)]
+        [Required]
         public string Hall { get; set; }
+
         public string UserIds { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date/Time")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy hh:mm tt}")]
+        //[CustomValidation(typeof(GymClassDateValidation), nameof(GymClassDateValidation.WithinCalendarValidate))]
         public DateTime GymClassTime { get; set; } // this is a specific date/time. In StdGymClassTimetable it uses Day/Hour/Minute
-        public int? MaxPeople { get; set; }
+
+        [Range(1, 100)]
+        [Display(Name = "Max People")]
+        public int MaxPeople { get; set; }
     }
 
+
+    //public class GymClassDateValidation
+    //{
+    //    public static ValidationResult WithinCalendarValidate(DateTime date)
+    //    {
+    //        return date > DateTime.Now.AddDays(28) || date < DateTime.Now.AddHours(-8)
+    //            ? new ValidationResult("Can't add a class outside the current calendar")
+    //            : ValidationResult.Success;
+    //    }
+    //}
 
 
     public static class GetPics

@@ -30,7 +30,7 @@ namespace GymBooker1.Views
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CalendarItem gymClass = db.CalendarItems.Find(idInt);
-            if (gymClass == null || gymClass.UserIds == "") // if userenters web address parameters manually and they are not valid
+            if (gymClass == null || gymClass.UserIds == "") // if user enters web address parameters manually and they are not valid
             {
                 return HttpNotFound();
             }
@@ -207,10 +207,56 @@ namespace GymBooker1.Views
 
 
 
-        ////////////// ADMIN AREAS FOR UPDATING TIMETABLE - NOT IMPLEMENTED - SEE STD TIMETABLE /////////////////
+        ////////////// ADMIN AREAS FOR UPDATING LIVE TIMETABLE /////////////////
+
+        // GET: CalendarItems
+        [Authorize(Roles = "Admin")]
+        [OutputCache(NoStore = true, Duration = 0)]
+        public ActionResult CalendarViewAdmin(string fitnessClass, string classDate)
+        {
+
+            DateTime dateFrom = DateTime.Now;
+
+            if (classDate != null)
+            {
+                dateFrom = DateTime.Parse(classDate);
+            }
+
+            var x = new TimetableController();
+            x.UpdateCalendar();
+
+            var Calendar = new List<CalendarItem>();
+            if (dateFrom < DateTime.Now) dateFrom = DateTime.Now;
+            DateTime dateTo = dateFrom.AddDays(7);
+
+            if (fitnessClass != null && fitnessClass != "ALL")
+            {
+                Calendar = db.CalendarItems
+                    .Where(d => d.GymClassTime >= dateFrom)
+                    //.Where(d => d.GymClassTime <= dateTo)
+                    .Where(d => d.GymClass.Name == fitnessClass)
+                    .OrderBy(d => d.GymClassTime).ToList();
+            }
+            else
+            {
+                Calendar = db.CalendarItems
+                    .Where(d => d.GymClassTime >= dateFrom)
+                    //.Where(d => d.GymClassTime <= dateTo)
+                    .OrderBy(d => d.GymClassTime).ToList();
+            }
+
+            ViewBag.GymClasses = db.GymClasses.ToList();
+            ViewBag.ClassDate = dateFrom;
+            //ViewBag.UserId = User.Identity.GetUserId();
+            ViewBag.fitnessClass = fitnessClass;
+            return View(Calendar);
+        }
+
+
+
 
         // GET: CalendarItems/Details/5
-        [Authorize(Roles = "Admin2")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
         {
             int idInt;
@@ -222,7 +268,7 @@ namespace GymBooker1.Views
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CalendarItem calendarItem = db.CalendarItems.Find(id);
+            CalendarItem calendarItem = db.CalendarItems.Find(idInt);
             if (calendarItem == null)
             {
                 return HttpNotFound();
@@ -231,11 +277,10 @@ namespace GymBooker1.Views
         }
 
         // GET: CalendarItems/Create
-        [Authorize(Roles = "Admin2")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            //ViewBag.Classes2 = Models.GymClasses; //"Bob"; // GymClasses;
-            ViewBag.GymClasses = db.GymClasses.ToList();
+            ViewBag.ClassId = new SelectList(db.GymClasses, "Id", "Name"); //the soure of dropdownlist
             return View();
         }
 
@@ -244,34 +289,35 @@ namespace GymBooker1.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin2")]
-        //public ActionResult Create([Bind(Include = "Id,Duration,Hall,UserIds,GymClassTime")] CalendarItem calendarItem)
-        public ActionResult Create([Bind(Include = "Duration,Hall")] CalendarItem calendarItem)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Create([Bind(Include = "Instructor,Duration,Hall,GymClassTime,MaxPeople,GymClassId")] CalendarItem calendarItem)
         {
             if (ModelState.IsValid)
             {
                 calendarItem.UserIds = "";
                 db.CalendarItems.Add(calendarItem);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CalendarViewAdmin");
             }
-
+            ViewBag.ClassId = new SelectList(db.GymClasses, "Id", "Name"); //the soure of dropdownlist
             return View(calendarItem);
         }
 
         // GET: CalendarItems/Edit/5
-        [Authorize(Roles = "Admin2")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CalendarItem calendarItem = db.CalendarItems.Find(id);
+            int idInt;
+            try { idInt = Int32.Parse(id); }
+            catch { return new HttpStatusCodeResult(HttpStatusCode.BadRequest); }
+            
+            CalendarItem calendarItem = db.CalendarItems.Find(idInt);
             if (calendarItem == null)
             {
                 return HttpNotFound();
             }
+            if (calendarItem.UserIds.Length != 0) ViewBag.UsersInClass = true;
+            ViewBag.ClassId = new SelectList(db.GymClasses, "Id", "Name"); //the soure of dropdownlist
             return View(calendarItem);
         }
 
@@ -280,15 +326,17 @@ namespace GymBooker1.Views
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin2")]
-        public ActionResult Edit([Bind(Include = "Id,Duration,Hall,UserIds,GymClassTime")] CalendarItem calendarItem)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit([Bind(Include = "Id,Instructor,Duration,Hall,GymClassTime,MaxPeople,GymClassId,UserIds")] CalendarItem calendarItem)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(calendarItem).State = EntityState.Modified;
+                if (calendarItem.UserIds == null) calendarItem.UserIds = "";
+                 db.Entry(calendarItem).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CalendarViewAdmin");
             }
+            ViewBag.ClassId = new SelectList(db.GymClasses, "Id", "Name"); //the soure of dropdownlist
             return View(calendarItem);
         }
 
@@ -296,14 +344,23 @@ namespace GymBooker1.Views
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            int idInt;
+            try
+            {
+                idInt = Int32.Parse(id);
+            }
+            catch
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CalendarItem calendarItem = db.CalendarItems.Find(id);
+            CalendarItem calendarItem = db.CalendarItems.Find(idInt);
             if (calendarItem == null)
             {
                 return HttpNotFound();
+            }
+            if (calendarItem.UserIds.Length != 0)
+            {
+                ViewBag.UsersInClass = true;
             }
             return View(calendarItem);
         }
@@ -311,13 +368,22 @@ namespace GymBooker1.Views
         // POST: CalendarItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin2")]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(string id)
         {
-            CalendarItem calendarItem = db.CalendarItems.Find(id);
+            int idInt;
+            try
+            {
+                idInt = Int32.Parse(id);
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CalendarItem calendarItem = db.CalendarItems.Find(idInt);
             db.CalendarItems.Remove(calendarItem);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("CalendarViewAdmin");
         }
 
         protected override void Dispose(bool disposing)

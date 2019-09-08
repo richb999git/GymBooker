@@ -197,6 +197,14 @@
     <Compile Include="Migrations\201909041907062_ChangeForeignKeyProgramming.Designer.cs">
       <DependentUpon>201909041907062_ChangeForeignKeyProgramming.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909071723053_NotationsOnCalendarItemsAndDurationNotNull.cs" />
+    <Compile Include="Migrations\201909071723053_NotationsOnCalendarItemsAndDurationNotNull.Designer.cs">
+      <DependentUpon>201909071723053_NotationsOnCalendarItemsAndDurationNotNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909071740172_MaxPeopleNotNull.cs" />
+    <Compile Include="Migrations\201909071740172_MaxPeopleNotNull.Designer.cs">
+      <DependentUpon>201909071740172_MaxPeopleNotNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\GymClassses.cs" />
@@ -208,6 +216,8 @@
     <Compile Include="Controllers\GymClassesController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -271,6 +281,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -310,6 +322,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -382,6 +398,7 @@
     <Content Include="Views\StdGymClassTimetables\Delete.cshtml" />
     <Content Include="Views\StdGymClassTimetables\Edit.cshtml" />
     <Content Include="Views\StdGymClassTimetables\Index.cshtml" />
+    <Content Include="Views\CalendarItems\CalendarViewAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -407,6 +424,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909041907062_ChangeForeignKeyProgramming.resx">
       <DependentUpon>201909041907062_ChangeForeignKeyProgramming.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909071723053_NotationsOnCalendarItemsAndDurationNotNull.resx">
+      <DependentUpon>201909071723053_NotationsOnCalendarItemsAndDurationNotNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909071740172_MaxPeopleNotNull.resx">
+      <DependentUpon>201909071740172_MaxPeopleNotNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

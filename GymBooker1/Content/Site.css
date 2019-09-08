@@ -225,3 +225,9 @@ a:hover { text-decoration: none; } /* for class booking screen */
 .big-checkbox {
     transform:scale(1.7);
 }
+
+.warning-message {
+    background-color: red;
+    color: white;
+    padding: 20px;
+}

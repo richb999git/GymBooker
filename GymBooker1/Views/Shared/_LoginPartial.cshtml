@@ -14,7 +14,8 @@
                     Admin<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Std Timetable", "Index", "StdGymClassTimetables", null, new { onClick = "buttonClick()"})</li>
+                    <li>@Html.ActionLink("Edit Standard Timetable", "Index", "StdGymClassTimetables", null, new { onClick = "buttonClick()" })</li>
+                    <li>@Html.ActionLink("Edit Live Timetable", "CalendarViewAdmin", "CalendarItems", null, new { onClick = "buttonClick()" })</li>
                 </ul>
             </li>
         }
