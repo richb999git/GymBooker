@@ -1,4 +1,4 @@
-﻿@* Show class timetable  *@
+﻿@* Admin page to view the calendar *@
 @* Controller: CalendarItemsController  *@
 
 @model IEnumerable<GymBooker1.Models.CalendarItem>
@@ -60,14 +60,14 @@
         if (a[0].GymClassTime.Date > DateTime.Now.AddDays(6).Date)
         {
             @*<button onClick="buttonClick()" id="prevButton" type="button" class="btn btn-info pull-left">@Html.ActionLink("PREVIOUS WEEK", "Index", new { classDate = prev.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] })</button>*@
-            @Html.ActionLink("PREVIOUS WEEK", "Index", new { classDate = prev.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "prevButton", @class = "btn btn-info pull-left", onClick = "buttonClick()" })
+            @Html.ActionLink("PREVIOUS WEEK", "CalendarViewAdmin", new { classDate = prev.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "prevButton", @class = "btn btn-info pull-left", onClick = "buttonClick()" })
         }
 
         // if next < last date in timetable
         if (next < a[a.Length - 1].GymClassTime)
         {
             @*<button id="nextButton" type="button" class="btn btn-info pull-right">@Html.ActionLink("NEXT WEEK", "Index", new { classDate = next.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { onClick = "buttonClick()" })</button>*@
-            @Html.ActionLink("NEXT WEEK", "Index", new { classDate = next.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "nextButton", @class = "btn btn-info pull-right", onClick = "buttonClick()" })
+            @Html.ActionLink("NEXT WEEK", "CalendarViewAdmin", new { classDate = next.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "nextButton", @class = "btn btn-info pull-right", onClick = "buttonClick()" })
         }
     }
 

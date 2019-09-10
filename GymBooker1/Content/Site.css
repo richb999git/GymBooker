@@ -159,6 +159,9 @@ a:hover { text-decoration: none; } /* for class booking screen */
     width: 100%;
 }
 
+.width400px {
+    width:400px;
+}
 
 /* Image zoom effect */
 .img-hover-zoom {
@@ -231,3 +234,4 @@ a:hover { text-decoration: none; } /* for class booking screen */
     color: white;
     padding: 20px;
 }
+

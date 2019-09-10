@@ -273,6 +273,8 @@ namespace GymBooker1.Views
             {
                 return HttpNotFound();
             }
+            ViewBag.gymClassAttenders = calendarItem.UserIds.Split(',').ToList();
+            ViewBag.AllUsers = db.Users;
             return View(calendarItem);
         }
 
@@ -292,6 +294,11 @@ namespace GymBooker1.Views
         [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Instructor,Duration,Hall,GymClassTime,MaxPeople,GymClassId")] CalendarItem calendarItem)
         {
+            if (calendarItem.GymClassTime < DateTime.Now || calendarItem.GymClassTime > DateTime.Today.AddDays(28))
+            {
+                ModelState.AddModelError("GymClassTime", "Can't add a class outside the current calendar");
+            }
+
             if (ModelState.IsValid)
             {
                 calendarItem.UserIds = "";
@@ -329,6 +336,11 @@ namespace GymBooker1.Views
         [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,Instructor,Duration,Hall,GymClassTime,MaxPeople,GymClassId,UserIds")] CalendarItem calendarItem)
         {
+            if (calendarItem.GymClassTime < DateTime.Now || calendarItem.GymClassTime > DateTime.Today.AddDays(28))
+            {
+                ModelState.AddModelError("GymClassTime", "Can't add a class outside the current calendar");
+            }
+
             if (ModelState.IsValid)
             {
                 if (calendarItem.UserIds == null) calendarItem.UserIds = "";

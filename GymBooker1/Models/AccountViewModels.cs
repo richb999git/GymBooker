@@ -80,7 +80,18 @@ namespace GymBooker1.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
         public DateTime BirthDate { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
+        [StringLength(25, MinimumLength = 1)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(25, MinimumLength = 1)]
+        public string LastName { get; set; }
     }
 
     public class ResetPasswordViewModel

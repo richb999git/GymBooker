@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var dateFormat = 'DD-MM-YYYY hh:mm a';
     
     $('.datetimepicker1').datetimepicker({
-        format: dateFormat,
+        format: dateFormat
     });
 
     // need this due an issue with validation checking

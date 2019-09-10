@@ -103,24 +103,12 @@ namespace GymBooker1.Models
         [DataType(DataType.Date)]
         [Display(Name = "Date/Time")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy hh:mm tt}")]
-        //[CustomValidation(typeof(GymClassDateValidation), nameof(GymClassDateValidation.WithinCalendarValidate))]
         public DateTime GymClassTime { get; set; } // this is a specific date/time. In StdGymClassTimetable it uses Day/Hour/Minute
 
         [Range(1, 100)]
         [Display(Name = "Max People")]
         public int MaxPeople { get; set; }
     }
-
-
-    //public class GymClassDateValidation
-    //{
-    //    public static ValidationResult WithinCalendarValidate(DateTime date)
-    //    {
-    //        return date > DateTime.Now.AddDays(28) || date < DateTime.Now.AddHours(-8)
-    //            ? new ValidationResult("Can't add a class outside the current calendar")
-    //            : ValidationResult.Success;
-    //    }
-    //}
 
 
     public static class GetPics
