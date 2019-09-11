@@ -9,7 +9,7 @@
 
         @if (User.IsInRole("Admin"))
         {
-            <li class="dropdown">
+            <li class="dropdown hover-drop">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                     Admin<span class="caret"></span>
                 </a>
@@ -20,12 +20,16 @@
             </li>
         }
 
-        <li>
-            @Html.ActionLink("Member Page", "MembersPage", "CalendarItems", null, new { onClick = "buttonClick()" })
-        </li>
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
+        <li class="dropdown hover-drop">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" title="Manage your membership">
+                    Hello @User.Identity.GetUserName()!<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Your class bookings", "MembersPage", "CalendarItems", null, new { onClick = "buttonClick()" })</li>
+                    <li>@Html.ActionLink("Manage your login", "Index", "Manage")</li>
+                </ul>
+            </li>
+
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }

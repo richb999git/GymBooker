@@ -5,7 +5,7 @@
 
 
 
-<h1 style="font-family: Impact;" class="text-center text-uppercase">@ViewBag.category</h1>
+<h1 class="font-impact text-center text-uppercase">@ViewBag.category</h1>
 
 
 @*  loop through model
@@ -33,10 +33,10 @@
                 </a>
             </div>
 
-            <div class="visible-xs img-hover-zoom">
+            <div class="visible-xs img-hover-zoom no-margin-pic">
                 
                 <a href="@Url.Action("Show", "GymClasses", new { id = item.Name })">
-                    <img width="300" src=@pic alt="" class="swidth100" /> @* width 300 makes it fit on the small page and makes in full height*@
+                    <img width="100%" src=@pic alt="" class="pd-0dd"/> @* width 300 makes it fit on the small page and makes in full height*@
                 </a>
             </div>
 

@@ -24,9 +24,17 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Timetable", "Index", "CalendarItems", null, new { onClick = "buttonClick()" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Timetable", "Index", "CalendarItems", null, new { onClick = "buttonClick()", title = "View class timetable" })</li>
+                    <li class="dropdown hover-drop">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                            More<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -56,5 +64,6 @@
     <script src="~/Scripts/moment.min.js"></script>
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

@@ -36,13 +36,26 @@ textarea {
     margin-top: 0;
 }
 
-.fixed-panel {
-    min-height: 270px;
-    max-height: 270px;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    font-weight: bold;
-    padding: 3px;
+@media screen and (max-width: 991px) {
+    .fixed-panel {
+        min-height: 100px; /* 270px */
+        max-height: 100px; /* 270px */
+        overflow-y: hidden;
+        overflow-x: hidden;
+        font-weight: bold;
+        padding-top: 1px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .fixed-panel {
+        min-height: 240px; /* 270px */
+        max-height: 240px; /* 270px */
+        overflow-y: hidden;
+        overflow-x: hidden;
+        font-weight: bold;
+        padding-top: 3px;
+    }
 }
 
 /*.fixed-panel:hover { background-color: aqua; } */
@@ -78,12 +91,20 @@ a:hover { text-decoration: none; } /* for class booking screen */
 .text-black { color: black;}
 .text-white { color: white;}
 .m-all-0 { margin: 0; }
-.mb-0 { margin-bottom: 0; }
-.mb-1 { margin-bottom: 1px; }
-.mb-3 { margin-bottom: 3px; }
-.mb-6 { margin-bottom: 6px; }
-.mb-50 { margin-bottom: 50px; }
-.mt-1 { margin-top: 1px; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 1px !important; }
+.mb-3 { margin-bottom: 3px !important; }
+.mb-6 { margin-bottom: 6px !important; }
+.mb-50 { margin-bottom: 50px !important; }
+.mt-1 { margin-top: 1px !important; }
+.mt-5 { margin-top: 5px }
+.mr-5 { margin-right: 5px }
+.ml-5 { margin-left: 5px }
+.pd-2 { padding:2px !important}
+.pd-1 { padding:1px !important}
+.pd-0 { padding:0 !important}
+
+.no-margin-pic { margin-left:-15px }
 
 .rounded {
     border-radius: 24px;
@@ -96,11 +117,6 @@ a:hover { text-decoration: none; } /* for class booking screen */
     z-index: 9;
 }
 
-.max-width80 {
-    max-width: 80px;
-}
-
-.pad0 { padding: 0;}
 .fullwidth { width: 100%;}
 
 /*.fixed-pic-panel {
@@ -155,12 +171,27 @@ a:hover { text-decoration: none; } /* for class booking screen */
     margin-right: auto;
 }
 
+.width95Centre {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .width100 {
     width: 100%;
 }
 
-.width400px {
-    width:400px;
+.width90 {
+    width: 90px;
+}
+
+.width140 {
+    width: 140px;
+    min-width: 140px;
+}
+
+.memberList {
+    width:290px;
 }
 
 /* Image zoom effect */
@@ -202,6 +233,14 @@ a:hover { text-decoration: none; } /* for class booking screen */
     background-color: DodgerBlue;
 }
 
+.min-width95 {
+    min-width: 95px;
+}
+
+.min-width75 {
+    min-width: 75px;
+}
+
 .min-width {
     min-width:600px;
 }
@@ -235,3 +274,16 @@ a:hover { text-decoration: none; } /* for class booking screen */
     padding: 20px;
 }
 
+.bg-white {
+    background-color: white;
+}
+
+.font-impact {
+    font-family: Impact;
+}
+
+.tableOverflow { /* make the table scrollable if screen too small */
+    overflow-x: auto;
+    margin-left: -15px;
+    margin-right: -15px;
+}

@@ -11,76 +11,78 @@
 <p>
     @Html.ActionLink("Create New Class", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Day)
-        </th>
-        <th>
-            Time
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GymClassId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GymClass.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Instructor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hall)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaxPeople)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @((DayOfWeek)item.Day)
-            </td>
-            <td>
-                @{
-                    DateTime time = new DateTime(1, 1, 1, item.Hour, item.Minute, 0);
-                }
-                @time.ToString("h:mm tt")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration) mins
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.GymClass.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.GymClass.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Instructor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hall)
-            </td>
-            <td class="text-center">
-                @Html.DisplayFor(modelItem => item.MaxPeople)
-            </td>
-            <td class="text-center">
-                @Html.DisplayFor(modelItem => item.Deleted)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { id = item.Id, @class = "btn btn-sm btn-primary" }) 
-                @Html.ActionLink("Del", "Delete", new { id = item.Id }, new { id = item.Id, @class = "btn btn-sm btn-danger" })
-            </td>
+<div class="tableOverflow">
+    <table class="table table-bordered table-condensed">
+        <tr class="label-primary text-white">
+            <th>
+                @Html.DisplayNameFor(model => model.Day)
+            </th>
+            <th class="min-width75">
+                Time
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GymClassId)
+            </th>
+            <th class="width140">
+                @Html.DisplayNameFor(model => model.GymClass.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Instructor)
+            </th>
+            <th class="min-width75">
+                @Html.DisplayNameFor(model => model.Hall)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxPeople)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr class="bg-white">
+                <td>
+                    @((DayOfWeek)item.Day)
+                </td>
+                <td>
+                    @{
+                        DateTime time = new DateTime(1, 1, 1, item.Hour, item.Minute, 0);
+                    }
+                    @time.ToString("h:mm tt")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration) mins
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.GymClass.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.GymClass.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Instructor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hall)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.MaxPeople)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Deleted)
+                </td>
+                <td class="width140">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { id = item.Id, @class = "btn btn-sm btn-primary" })
+                    @Html.ActionLink("Del", "Delete", new { id = item.Id }, new { id = item.Id, @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

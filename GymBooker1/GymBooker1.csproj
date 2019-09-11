@@ -399,6 +399,8 @@
     <Content Include="Views\StdGymClassTimetables\Edit.cshtml" />
     <Content Include="Views\StdGymClassTimetables\Index.cshtml" />
     <Content Include="Views\CalendarItems\CalendarViewAdmin.cshtml" />
+    <Content Include="Views\CalendarItems\_PartialGymClassOptionsAdmin.cshtml" />
+    <Content Include="Views\CalendarItems\_PartialGymClassOptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,8 +30,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // need this due an issue with validation checking
-    $.validator.methods.date = function (value, element) {
-        return this.optional(element) || moment(value, dateFormat, true).isValid();           
+    try {
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, dateFormat, true).isValid();
+        }
     }
-    
+    catch (err) { } // no action if no date entry on page
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    $(".hover-drop").hover(
+        function () { $(this).addClass('open'); console.log("On"); },
+        function () { $(this).removeClass('open'); console.log("Off"); }
+    );
+
 });

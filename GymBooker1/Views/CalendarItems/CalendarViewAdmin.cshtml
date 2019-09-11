@@ -59,14 +59,12 @@
     {
         if (a[0].GymClassTime.Date > DateTime.Now.AddDays(6).Date)
         {
-            @*<button onClick="buttonClick()" id="prevButton" type="button" class="btn btn-info pull-left">@Html.ActionLink("PREVIOUS WEEK", "Index", new { classDate = prev.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] })</button>*@
             @Html.ActionLink("PREVIOUS WEEK", "CalendarViewAdmin", new { classDate = prev.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "prevButton", @class = "btn btn-info pull-left", onClick = "buttonClick()" })
         }
 
         // if next < last date in timetable
         if (next < a[a.Length - 1].GymClassTime)
         {
-            @*<button id="nextButton" type="button" class="btn btn-info pull-right">@Html.ActionLink("NEXT WEEK", "Index", new { classDate = next.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { onClick = "buttonClick()" })</button>*@
             @Html.ActionLink("NEXT WEEK", "CalendarViewAdmin", new { classDate = next.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "nextButton", @class = "btn btn-info pull-right", onClick = "buttonClick()" })
         }
     }
@@ -83,11 +81,11 @@
     @for (int day = 0; day < 7; day = day + 2)
     {
 
-        <li class="col-md-3 col-xs-12 text-center" style="padding: 1px">
+        <li class="col-md-3 col-xs-12 text-center pd-0">
 
             @for (int k = 0; k < 2; k++)
             {
-                <div class="col-md-6 col-xs-12" style="padding: 2px;">
+                <div class="col-md-6 col-xs-12 pd-1">
 
 
                     <div class="panel panel-primary">
@@ -112,26 +110,26 @@
                                     <hr class="hrCalendar" />
                                     <div class="sel" id="@a[j].GymClass.Id" href='@Url.Action("ClassDescription", new { id = a[j].GymClass.Id })'>
                                         <div class="panel-body fixed-panel">
-                                            <p class="text-uppercase text-black mb-0"><b>@a[j].GymClass.Name</b></p>
-                                            <p class="text-primary mb-1"><b>@a[j].GymClassTime.ToString("HH:mm tt").ToLower()</b></p>
-                                            <p class="text-primary mb-1"><b>(@a[j].Duration mins)</b></p>
-                                            <h6 class="text-black mb-0">@a[j].Instructor</h6>
-                                            <h6 class="text-black mt-1">@a[j].Hall</h6>
+ 
+                                            <div class="row">
+                                                <div class="col-md-12 col-xs-6 pd-1">
+                                                    <p class="text-uppercase text-black mb-0"><b>@a[j].GymClass.Name</b></p>
+                                                    <h5 class="text-primary mb-1 mt-1">@a[j].GymClassTime.ToString("hh:mm tt").ToLower() (@a[j].Duration mins)</h5>
+                                                    <h6 class="text-black mb-0">@a[j].Instructor</h6>
+                                                    <h6 class="text-black mt-1">@a[j].Hall</h6>
 
 
-                                            @if (a[j].UserIds.Length != 0)
-                                            {
-                                                List<string> gymClassAttenders = new List<string>();
-                                                int numInClass = a[j].UserIds == "" ? 0 : a[j].UserIds.Count(x => x == ',') + 1;
-                                                @Html.ActionLink("Class details", "Details", new { id = a[j].Id }, new { @class = "btn btn-primary mb-6 rounded", onClick = "buttonClick()" })
-                                                <h5 class="text-black mt-1">Members booked: @numInClass</h5>
-                                                <p class="text-black mt-1">Cannot edit/delete</p>
-                                            }
-                                            else
-                                            {
-                                                @Html.ActionLink("Edit Class", "Edit", new { id = a[j].Id }, new { @class = "btn btn-primary mb-6 rounded", onClick = "buttonClick()" })
-                                                @Html.ActionLink("Delete class", "Delete", new { id = a[j].Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
-                                            }
+                                                    <div class="hidden-sm hidden-xs">
+                                                        @{int numInClass = a[j].UserIds == "" ? 0 : a[j].UserIds.Count(x => x == ',') + 1;}
+                                                        @Html.Partial("_PartialGymClassOptionsAdmin", new ViewDataDictionary { { "numInClass", numInClass }, { "a", a[j] } })                                                       
+                                                    </div>
+                                                </div>
+                                                    
+                                                <div class="mt-5 pd-1 visible-sm visible-xs">
+                                                    @Html.Partial("_PartialGymClassOptionsAdmin", new ViewDataDictionary { { "numInClass", numInClass }, { "a", a[j] } })
+                                                </div>                                                    
+                                                
+                                            </div>
 
                                         </div>
                                     </div>
@@ -153,3 +151,26 @@
     }
 
 </ul>
+
+<div>
+    @if (a.Length == 0)
+    {
+        <p>No classes</p>
+    }
+    else
+    {
+        if (a[0].GymClassTime.Date > DateTime.Now.AddDays(6).Date)
+        {
+            @Html.ActionLink("PREVIOUS WEEK", "CalendarViewAdmin", new { classDate = prev.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "prevButton", @class = "btn btn-info pull-left", onClick = "buttonClick()" })
+        }
+
+        // if next < last date in timetable
+        if (next < a[a.Length - 1].GymClassTime)
+        {
+            @Html.ActionLink("NEXT WEEK", "CalendarViewAdmin", new { classDate = next.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "nextButton", @class = "btn btn-info pull-right", onClick = "buttonClick()" })
+        }
+    }
+
+</div>
+
+<div class="clearfix"></div>

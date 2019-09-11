@@ -11,62 +11,63 @@
 <br />
 <h2>Your booked classes:</h2>
 
-
-<table class="table table-bordered table-hover table-condensed">
-    <tr class="label-primary text-white">
-        <th>
-            @Html.DisplayNameFor(model => model.GymClassTime.Date)
-        </th>
-        <th>
-            Class name
-        </th>
-        <th>
-            Time
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Instructor)
-        </th>
-        <th>
-            Studio
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr style="background-color: white;">
-            <td>
-                @{
-                    var date = item.GymClassTime.ToString("ddd d MMM");
-                    @Html.DisplayFor(modelItem => date)
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GymClass.Name)
-            </td>
-            <td>
-                @{
-                    var time = item.GymClassTime.ToString("HH:mm tt").ToLower();
-                    @Html.DisplayFor(modelItem => time)
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration) mins
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Instructor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hall)
-            </td>
-            <td class="max-width80">
-                @Html.ActionLink("Cancel", "CancelClass", new { id = item.Id }, new { @class = "btn btn-sm btn-danger mb-1 rounded", onClick = "buttonClick()" })
-                @Html.ActionLink("Details", "ClassDescription", new { id = item.Id }, new { @class = "btn btn-sm btn-primary mb-1 rounded", onClick = "buttonClick()" })
-            </td>
+<div class="tableOverflow">
+    <table class="table table-bordered table-condensed">
+        <tr class="label-primary text-white">
+            <th class="min-width95">
+                @Html.DisplayNameFor(model => model.GymClassTime.Date)
+            </th>
+            <th>
+                Class name
+            </th>
+            <th class="min-width75">
+                Time
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Instructor)
+            </th>
+            <th>
+                Studio
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr class="bg-white">
+                <td>
+                    @{
+                        var date = item.GymClassTime.ToString("ddd d MMM");
+                        @Html.DisplayFor(modelItem => date)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GymClass.Name)
+                </td>
+                <td>
+                    @{
+                        var time = item.GymClassTime.ToString("HH:mm tt").ToLower();
+                        @Html.DisplayFor(modelItem => time)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration) mins
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Instructor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hall)
+                </td>
+                <td class="width140">
+                    @Html.ActionLink("Cancel", "CancelClass", new { id = item.Id }, new { @class = "btn btn-sm btn-danger mb-1 rounded", onClick = "buttonClick()" })
+                    @Html.ActionLink("Details", "ClassDescription", new { id = item.Id }, new { @class = "btn btn-sm btn-primary mb-1 rounded", onClick = "buttonClick()" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
