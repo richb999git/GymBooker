@@ -15,7 +15,7 @@
 
 
 
-<div class="text-center" >
+<div class="text-center no-margin-home" >
 
     @{ var i = 0;}
     @foreach(var item in Model)
@@ -27,16 +27,16 @@
       
         <div class="inline-block">
             <h3 class="text-center">@item.Name</h3>
-            <div class="img-hover-zoom marginRL10 hidden-xs">
+            <div class="img-hover-zoom marginRL10 hidden-xs ">
                 <a href="@Url.Action("Show", "GymClasses", new { id = item.Name })">
                     <img src=@pic width="500" alt="" /> @*width 500 makes the pic taller and cuts off some*@
                 </a>
             </div>
 
-            <div class="visible-xs img-hover-zoom no-margin-pic">
+            <div class="visible-xs no-margin-home">
                 
                 <a href="@Url.Action("Show", "GymClasses", new { id = item.Name })">
-                    <img width="100%" src=@pic alt="" class="pd-0dd"/> @* width 300 makes it fit on the small page and makes in full height*@
+                    <img width="100%" src=@pic alt="" class=""/> @* width 300 makes it fit on the small page and makes in full height*@
                 </a>
             </div>
 

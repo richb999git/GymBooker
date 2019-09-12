@@ -13,39 +13,42 @@
 </p>
 <div class="tableOverflow">
     <table class="table table-bordered table-condensed">
-        <tr class="label-primary text-white">
-            <th>
-                @Html.DisplayNameFor(model => model.Day)
-            </th>
-            <th class="min-width75">
-                Time
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GymClassId)
-            </th>
-            <th class="width140">
-                @Html.DisplayNameFor(model => model.GymClass.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Instructor)
-            </th>
-            <th class="min-width75">
-                @Html.DisplayNameFor(model => model.Hall)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaxPeople)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Deleted)
-            </th>
-            <th></th>
-        </tr>
+        <thead>
+            <tr class="label-primary text-white">
+                <th>
+                    @Html.DisplayNameFor(model => model.Day)
+                </th>
+                <th class="min-width75">
+                    Time
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Duration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GymClassId)
+                </th>
+                <th class="width140">
+                    @Html.DisplayNameFor(model => model.GymClass.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Instructor)
+                </th>
+                <th class="min-width75">
+                    @Html.DisplayNameFor(model => model.Hall)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaxPeople)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Deleted)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
 
         @foreach (var item in Model)
         {
+        <tbody class="">
             <tr class="bg-white">
                 <td>
                     @((DayOfWeek)item.Day)
@@ -82,6 +85,7 @@
                     @Html.ActionLink("Del", "Delete", new { id = item.Id }, new { id = item.Id, @class = "btn btn-sm btn-danger" })
                 </td>
             </tr>
+        </tbody>
         }
 
     </table>
