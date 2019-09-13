@@ -34,12 +34,9 @@ namespace GymBooker1.Views
             {
                 return HttpNotFound();
             }
-            // get UserId list
+            // get users who have booked this class
             List<string> gymClassAttenders = gymClass.UserIds.Split(',').ToList();
-            // find and delete any that match user id
             gymClassAttenders.Remove(strCurrentUserId);
-            // save it
-            // return view confirming delete
             gymClass.UserIds = string.Join(",", gymClassAttenders.Select(n => n.ToString()).ToArray());
             db.SaveChanges();
 
@@ -159,7 +156,6 @@ namespace GymBooker1.Views
             {
                 Calendar = db.CalendarItems
                     .Where(d => d.GymClassTime >= dateFrom)
-                    //.Where(d => d.GymClassTime <= dateTo)
                     .Where(d => d.GymClass.Name == fitnessClass)
                     .OrderBy(d => d.GymClassTime).ToList();
             }
@@ -167,7 +163,6 @@ namespace GymBooker1.Views
             {
                 Calendar = db.CalendarItems
                     .Where(d => d.GymClassTime >= dateFrom)
-                    //.Where(d => d.GymClassTime <= dateTo)
                     .OrderBy(d => d.GymClassTime).ToList();
             }
 
@@ -233,7 +228,6 @@ namespace GymBooker1.Views
             {
                 Calendar = db.CalendarItems
                     .Where(d => d.GymClassTime >= dateFrom)
-                    //.Where(d => d.GymClassTime <= dateTo)
                     .Where(d => d.GymClass.Name == fitnessClass)
                     .OrderBy(d => d.GymClassTime).ToList();
             }
@@ -241,13 +235,11 @@ namespace GymBooker1.Views
             {
                 Calendar = db.CalendarItems
                     .Where(d => d.GymClassTime >= dateFrom)
-                    //.Where(d => d.GymClassTime <= dateTo)
                     .OrderBy(d => d.GymClassTime).ToList();
             }
 
             ViewBag.GymClasses = db.GymClasses.ToList();
             ViewBag.ClassDate = dateFrom;
-            //ViewBag.UserId = User.Identity.GetUserId();
             ViewBag.fitnessClass = fitnessClass;
             return View(Calendar);
         }

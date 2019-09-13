@@ -101,7 +101,7 @@ namespace GymBooker1.Controllers
                 }
                 // delete old calendar and save new
                 db.Database.ExecuteSqlCommand("delete from CalendarItems");
-                //db.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('CalendarItems', RESEED, 0)"); // reseed if wanted - specific to MS SQL
+                //db.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('CalendarItems', RESEED, 0)"); // reseed if wanted (set id to 0) - specific to MS SQL
                 db.CalendarItems.AddRange(TimetableNew); // saves in random order, can't save in order.
                 db.SaveChanges();
             }

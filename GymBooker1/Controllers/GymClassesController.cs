@@ -60,7 +60,8 @@ namespace GymBooker1.Views
 
 
 
-        ///////////////// ADMIN ROUTES TO UPDATE GYM CLASSES. NOT LIKELY TO IMPLEMENT. ///////////////////////////
+        ///////////////////// ADMIN ROUTES TO UPDATE GYM CLASSES. NOT LIKELY TO IMPLEMENT. ////////////////////
+        // GENERATED CODE
 
         // GET: GymClasses
         [Authorize(Roles ="Admin2")]
