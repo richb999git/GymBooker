@@ -7,6 +7,16 @@ namespace GymBooker1.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
+        [Display(Name = "First Name")]
+        [StringLength(25, MinimumLength = 1)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(25, MinimumLength = 1)]
+        public string LastName { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
