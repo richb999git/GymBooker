@@ -60,8 +60,8 @@ namespace GymBooker1
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "541198000662-bcl4j7q9v61633pc46qnmub7va111hbt.apps.googleusercontent.com",
-                ClientSecret = "ibH1F5L3sBtvGizNDmfxDgbx"
+                ClientId = "",
+                ClientSecret = ""
             });
         }
     }
