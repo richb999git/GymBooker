@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -101,36 +103,29 @@ namespace GymBooker1.Controllers
         }
 
 
-
-        // GET: StdGymClassTimetables/Delete/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            StdGymClassTimetable stdGymClassTimetable = db.StdGymClassTimetables.Find(id);
-            if (stdGymClassTimetable == null)
-            {
-                return HttpNotFound();
-            }
-
-            ViewBag.Time = DateTime.Now.Date + new TimeSpan(stdGymClassTimetable.Hour, stdGymClassTimetable.Minute, 0);
-
-            return View(stdGymClassTimetable);
-        }
-
-        // POST: StdGymClassTimetables/Delete/5
+        // POST: StdGymClassTimetables/Delete  -- from AJAX call with id in body
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(string id) 
         {
-            StdGymClassTimetable stdGymClassTimetable = db.StdGymClassTimetables.Find(id);
-            db.StdGymClassTimetables.Remove(stdGymClassTimetable);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            int idInt;
+            try
+            {
+                idInt = Int32.Parse(id);
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            StdGymClassTimetable stdGymClassTimetable = db.StdGymClassTimetables.Find(idInt);
+            if (stdGymClassTimetable != null)
+            {
+                db.StdGymClassTimetables.Remove(stdGymClassTimetable);
+                db.SaveChanges();
+            }
+            
+            return null;
         }
 
         protected override void Dispose(bool disposing)

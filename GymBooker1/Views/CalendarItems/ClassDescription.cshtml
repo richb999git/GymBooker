@@ -35,7 +35,7 @@
         </div>
 
         <h3>Enjoy!</h3>
-        
+
 
 
         @if (User.Identity.IsAuthenticated)
@@ -46,8 +46,13 @@
             if (index != -1)
             {
                 <h4>You're aleady booked in!</h4>
-                <br />
-                @Html.ActionLink("Cancel class", "CancelClass", new { id = Model.Id }, new { @class = "btn-lg btn-danger mb-6 rounded", onClick = "buttonClick()" })
+                <br />               
+                using (Html.BeginForm("CancelClass", "CalendarItems", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.HiddenFor(model => model.Id);
+                    <input type="submit" value="Cancel Class" class="btn-lg btn-danger rounded blankButton" />
+                }
             }
             else
             {
@@ -59,7 +64,14 @@
                 else
                 {
                     <br />
-                    @Html.ActionLink("Book Now", "BookClass", new { id = Model.Id }, new { @class = "btn-lg btn-danger mb-6 rounded", onClick = "buttonClick()" })
+
+                    using (Html.BeginForm("BookClass", "CalendarItems", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken();
+                        @Html.HiddenFor(model => model.Id);
+                        <input type="submit" value="Book Now" class="btn-lg btn-danger rounded blankButton" />
+                    }
+                    
                 }
             }
 

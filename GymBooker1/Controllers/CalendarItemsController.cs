@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using GymBooker1.Controllers;
 using GymBooker1.Models;
 using Microsoft.AspNet.Identity;
@@ -14,10 +15,14 @@ namespace GymBooker1.Views
 {
     public class CalendarItemsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();       
 
+        // POST: CalendarItems/CancelClass/2
+        // Cancel class from user
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult CancelClass(string id)
+        public ActionResult CancelClass(string id, bool AJAX = false)
         {
             var strCurrentUserId = User.Identity.GetUserId();
             int idInt;
@@ -40,22 +45,29 @@ namespace GymBooker1.Views
             gymClass.UserIds = string.Join(",", gymClassAttenders.Select(n => n.ToString()).ToArray());
             db.SaveChanges();
 
+            TempData["CurrentClass"] = gymClass.Id;
+
+            if (AJAX) return null;
+
+            //return Redirect(Url.Action("Index") + "#" + gymClass.Id);
+
             var pics2 = GetPics.Get2Pics(gymClass.GymClass.Name);
 
             ViewBag.pic0 = "/Content/Images/Classes/" + pics2[0];
             ViewBag.pic1 = "/Content/Images/Classes/" + pics2[1];
 
             return View(gymClass); /// go to page showing confirmation of cancelled class
-
         }
 
-
-        // GET: CalendarItems/BookClass/2
+       
+        // POST: CalendarItems/BookClass/2
         // Add class to user or add user to class!
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult BookClass(string id)
+        public ActionResult BookClass(string id, bool AJAX = false)
         {
-            
+
             var strCurrentUserId = User.Identity.GetUserId();
 
             int idInt;
@@ -81,8 +93,8 @@ namespace GymBooker1.Views
             {
                 gymClassAttenders = gymClass.UserIds.Split(',').ToList();
             }
-            
-            var userInString = gymClassAttenders.Find(x => x == strCurrentUserId); 
+
+            var userInString = gymClassAttenders.Find(x => x == strCurrentUserId);
 
             if (userInString != null || numInClass >= gymClass.MaxPeople)
             {
@@ -93,6 +105,12 @@ namespace GymBooker1.Views
             gymClass.UserIds = string.Join(",", gymClassAttenders.Select(n => n.ToString()).ToArray());
             db.SaveChanges();
 
+            TempData["CurrentClass"] = gymClass.Id;
+
+            if (AJAX) return null;
+
+            //return Redirect(Url.Action("Index") + "#" + gymClass.Id);
+
             var pics2 = GetPics.Get2Pics(gymClass.GymClass.Name);
 
             ViewBag.pic0 = "/Content/Images/Classes/" + pics2[0];
@@ -101,6 +119,7 @@ namespace GymBooker1.Views
             return View(gymClass); /// go to page showing confirmation of booking
 
         }
+
 
 
         // GET: CalendarItems/ClassDescription/2
@@ -129,6 +148,7 @@ namespace GymBooker1.Views
             ViewBag.pic0 = "/Content/Images/Classes/" + pics2[0];
             ViewBag.pic1 = "/Content/Images/Classes/" + pics2[1];
 
+            TempData["CurrentClass"] = gymClass.Id;
             return View(gymClass);
         }
 
@@ -296,7 +316,9 @@ namespace GymBooker1.Views
                 calendarItem.UserIds = "";
                 db.CalendarItems.Add(calendarItem);
                 db.SaveChanges();
-                return RedirectToAction("CalendarViewAdmin");
+                //return RedirectToAction("CalendarViewAdmin");
+                TempData["CurrentClass"] = calendarItem.Id;
+                return Redirect(Url.Action("CalendarViewAdmin") + "#" + calendarItem.Id);
             }
             ViewBag.ClassId = new SelectList(db.GymClasses, "Id", "Name"); //the soure of dropdownlist
             return View(calendarItem);
@@ -338,7 +360,9 @@ namespace GymBooker1.Views
                 if (calendarItem.UserIds == null) calendarItem.UserIds = "";
                  db.Entry(calendarItem).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("CalendarViewAdmin");
+                //return RedirectToAction("CalendarViewAdmin");
+                TempData["CurrentClass"] = calendarItem.Id;
+                return Redirect(Url.Action("CalendarViewAdmin") + "#" + calendarItem.Id);
             }
             ViewBag.ClassId = new SelectList(db.GymClasses, "Id", "Name"); //the soure of dropdownlist
             return View(calendarItem);

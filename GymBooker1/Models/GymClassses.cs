@@ -224,4 +224,17 @@ namespace GymBooker1.Models
     }
 
 
+    public static class CategoryDescs
+    {
+        public static string[] GetCategoryDescs()
+        {
+            string[] descs = new string[4];
+            descs[0] = "Get fitter and burn calories. These classes are for anyone that loves music and energy.";
+            descs[1] = "Change the shape of your body by strengthening and conditioning your muscles.";
+            descs[2] = "All rounder classes for wellbeing, core strength, flexibility and low impact conditioning.";
+            descs[3] = "Feel stronger and fitter using functional kit such as battle ropes, assault bikes and kettlebells.";
+            return descs;
+        }
+    }
+
 }

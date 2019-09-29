@@ -53,29 +53,31 @@
     <br />
     <p><b>Members who have booked this class:</b></p>
 
-    <div class="memberList">
-        <table class="table table-bordered table-hover table-condensed">
-            <tr class="label-primary text-white">
-                <th>
-                    Email
-                </th>
-                <th>
-                    Name
-                </th>
-            </tr>
-
-            @foreach (var item in ViewBag.gymClassAttenders)
-            {
-                <tr>
-                    <td>
-                        @ViewBag.AllUsers.Find(item).Email
-                    </td>
-                    <td>
-                        @ViewBag.AllUsers.Find(item).FirstName @ViewBag.AllUsers.Find(item).LastName
-                    </td>
+    <div class="memberList containerT">
+        <table class="table table-bordered table-hover table-condensed bg-white">
+            <thead>
+                <tr class="">
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Name
+                    </th>
                 </tr>
-            }
-
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.gymClassAttenders)
+                {
+                    <tr>
+                        <td>
+                            @ViewBag.AllUsers.Find(item).Email
+                        </td>
+                        <td>
+                            @ViewBag.AllUsers.Find(item).FirstName @ViewBag.AllUsers.Find(item).LastName
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 

@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           type="text/css" rel="stylesheet" />
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 </head>
@@ -51,11 +51,11 @@
     <div>
         <div class="container body-content">
             @RenderBody()
-            <hr />
+            <hr class="dark-bottom"/>
             <footer>
-                <h4 class="text-primary">GymTime</h4>
+                <h4 class="text-black">GymTime</h4>
                 <h2 class="pull-left mt-1"><a href="mailto: richb999@tiscali.co.uk"><i class="glyphicon glyphicon-envelope"></i></a></h2>
-                <p class="text-primary pull-right mt-5">&copy; @DateTime.Now.Year - Richard Braunton</p>
+                <p class="text-black pull-right mt-5">&copy; @DateTime.Now.Year - Richard Braunton</p>
             </footer>
         </div>
     </div>

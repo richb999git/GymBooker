@@ -2,7 +2,7 @@
 @if (ViewBag.a.UserIds.Length != 0)
 {
     @Html.ActionLink("Class details", "Details", new { id = ViewBag.a.Id }, new { @class = "btn btn-primary mb-6 rounded", onClick = "buttonClick()" })
-    <h5 class="text-black mb-1 mt-1">Members booked: @ViewBag.numInClass</h5>
+    <p class="text-black mb-1 mt-1 h5">Members booked: @ViewBag.numInClass</p>
     <p class="text-black mt-1">Cannot edit/delete</p>
 }
 else

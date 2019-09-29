@@ -3,76 +3,20 @@
 
 @model IEnumerable<GymBooker1.Models.CalendarItem>
 
-@{
-    ViewBag.Title = "EDIT FITNESS CLASSES FROM LIVE CALENDAR";
-}
+<h2>EDIT FITNESS CLASSES FROM LIVE CALENDAR</h2>
 
-<h2>@ViewBag.Title</h2>
+<p>@Html.ActionLink("Add a New Class", "Create", null, new { @class = "btn btn-primary text-center rounded" })</p>
 
-<p>
-    @Html.ActionLink("Add a New Class", "Create")
-</p>
+@{ var a = Model.ToArray(); }
 
-@{
-    var a = Model.ToArray();
-    DateTime prev = DateTime.Now;
-    DateTime next = DateTime.Now;
-    if (a.Length > 0)
-    {
-        prev = ViewBag.ClassDate.AddDays(-7) <= DateTime.Now.Date ? DateTime.Now : ViewBag.ClassDate.AddDays(-7);
-        next = ViewBag.ClassDate.AddDays(7);
-    }
-}
+@Html.Partial("_PartialClassDropDown", new ViewDataDictionary { { "Controller", "CalendarViewAdmin" }, { "GymClasses", ViewBag.GymClasses }, { "fitnessClass", ViewBag.fitnessClass } })
 
+@Html.Partial("_PartialPaging", new ViewDataDictionary { { "Controller", "CalendarViewAdmin" }, { "ClassDate", ViewBag.ClassDate }, { "a", a } })
 
-<br />
-<div class="dropdown pull-left">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Choose class type
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li onClick="buttonClick()">@Html.ActionLink("ALL", "CalendarViewAdmin", new { fitnessClass = "ALL" })</li>
-        @foreach (var item in ViewBag.GymClasses)
-        {
-            <li onClick="buttonClick()">@Html.ActionLink((string)item.Name, "CalendarViewAdmin", new { fitnessClass = item.Name })</li>
-        }
-    </ul>
-</div>
+<br /><br /><br /> @*These needed to make sure you can click paging buttons because of anchor-shift-down class below*@
 
-<p class="timetableDropdownChoice" >
-      @ViewBag.fitnessClass
-</p>
-
-<div class="clearfix"></div>
-
-<br />
 @*Bootstrap 3
     Using a list-inline with 4 columns of 2 to be able to show 8 columns across the screen *@
-
-<div>
-    @if (a.Length == 0)
-    {
-        <p>No classes</p>
-    }
-    else
-    {
-        if (a[0].GymClassTime.Date > DateTime.Now.AddDays(6).Date)
-        {
-            @Html.ActionLink("PREVIOUS WEEK", "CalendarViewAdmin", new { classDate = prev.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "prevButton", @class = "btn btn-info pull-left", onClick = "buttonClick()" })
-        }
-
-        // if next < last date in timetable
-        if (next < a[a.Length - 1].GymClassTime)
-        {
-            @Html.ActionLink("NEXT WEEK", "CalendarViewAdmin", new { classDate = next.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "nextButton", @class = "btn btn-info pull-right", onClick = "buttonClick()" })
-        }
-    }
-
-</div>
-
-<br /><br /><br />
-
 
 <ul class="list-inline row">
     @{ var j = 0; // 0 when sending with a from date. Else would need to get to the from date
@@ -108,16 +52,24 @@
                                 while (j < a.Length && a[j].GymClassTime.Date == DateInWeek.Date) // if the same date then keep looping
                                 {
                                     <hr class="hrCalendar" />
-                                    <div class="sel" id="@a[j].GymClass.Id" href='@Url.Action("ClassDescription", new { id = a[j].GymClass.Id })'>
-                                        <div class="panel-body fixed-panel">
- 
+                                    <div class="sel anchor-shift-down" id="@a[j].Id">
+
+                                        @{string cl = "panel-body fixed-panel sel2";}
+
+                                        @if (TempData["CurrentClass"] != null && a[j].Id == (int)TempData["CurrentClass"])
+                                        {
+                                            cl = "panel-body fixed-panel sel2 bg-danger";
+                                            TempData.Remove("CurrentClass");
+                                        }
+                                        <div class="@cl">
+
                                             <div class="row">
                                                 <div class="col-md-12 col-xs-6 pd-1">
                                                     <p class="text-uppercase text-black mb-0"><b>@a[j].GymClass.Name</b></p>
-                                                    <h5 class="text-primary mb-1 mt-1">@a[j].GymClassTime.ToString("hh:mm tt").ToLower() (@a[j].Duration mins)</h5>
-                                                    <h6 class="text-primary mt-1">@a[j].GymClassTime.ToString("ddd d MMM")</h6>
-                                                    <h6 class="text-black mb-0">@a[j].Instructor</h6>
-                                                    <h6 class="text-black mt-1">@a[j].Hall</h6>
+                                                    <p class="text-success mb-1 mt-1 h5">@a[j].GymClassTime.ToString("hh:mm tt").ToLower() (@a[j].Duration mins)</p>
+                                                    <p class="text-success mt-1 h5">@a[j].GymClassTime.ToString("ddd d MMM")</p>
+                                                    <p class="text-black mb-0 h6">@a[j].Instructor</p>
+                                                    <p class="text-black mt-1 h6">@a[j].Hall</p>
 
 
                                                     <div class="hidden-sm hidden-xs">
@@ -125,11 +77,11 @@
                                                         @Html.Partial("_PartialGymClassOptionsAdmin", new ViewDataDictionary { { "numInClass", numInClass }, { "a", a[j] } })
                                                     </div>
                                                 </div>
-                                                    
+
                                                 <div class="mt-5 pd-1 visible-sm visible-xs">
                                                     @Html.Partial("_PartialGymClassOptionsAdmin", new ViewDataDictionary { { "numInClass", numInClass }, { "a", a[j] } })
-                                                </div>                                                    
-                                                
+                                                </div>
+
                                             </div>
 
                                         </div>
@@ -153,25 +105,6 @@
 
 </ul>
 
-<div>
-    @if (a.Length == 0)
-    {
-        <p>No classes</p>
-    }
-    else
-    {
-        if (a[0].GymClassTime.Date > DateTime.Now.AddDays(6).Date)
-        {
-            @Html.ActionLink("PREVIOUS WEEK", "CalendarViewAdmin", new { classDate = prev.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "prevButton", @class = "btn btn-info pull-left", onClick = "buttonClick()" })
-        }
-
-        // if next < last date in timetable
-        if (next < a[a.Length - 1].GymClassTime)
-        {
-            @Html.ActionLink("NEXT WEEK", "CalendarViewAdmin", new { classDate = next.ToString("d-MMM-yyyy"), fitnessClass = Request.QueryString["fitnessClass"] }, new { id = "nextButton", @class = "btn btn-info pull-right", onClick = "buttonClick()" })
-        }
-    }
-
-</div>
+@Html.Partial("_PartialPaging", new ViewDataDictionary { { "Controller", "CalendarViewAdmin" }, { "ClassDate", ViewBag.ClassDate }, { "a", a } })
 
 <div class="clearfix"></div>

@@ -396,12 +396,13 @@
     <Content Include="Views\GymClasses\Show.cshtml" />
     <Content Include="Views\GymClasses\Categories.cshtml" />
     <Content Include="Views\StdGymClassTimetables\Create.cshtml" />
-    <Content Include="Views\StdGymClassTimetables\Delete.cshtml" />
     <Content Include="Views\StdGymClassTimetables\Edit.cshtml" />
     <Content Include="Views\StdGymClassTimetables\Index.cshtml" />
     <Content Include="Views\CalendarItems\CalendarViewAdmin.cshtml" />
     <Content Include="Views\CalendarItems\_PartialGymClassOptionsAdmin.cshtml" />
     <Content Include="Views\CalendarItems\_PartialGymClassOptions.cshtml" />
+    <Content Include="Views\CalendarItems\_PartialPaging.cshtml" />
+    <Content Include="Views\CalendarItems\_PartialClassDropDown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

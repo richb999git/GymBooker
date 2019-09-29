@@ -16,7 +16,7 @@
             <h4>@Model.Hall</h4>
             <h4>@Model.GymClassTime</h4>
             <br />
-            <p class="text-center">@Html.ActionLink("BOOK ANOTHER CLASS", "Index", "CalendarItems", new { fitnessClass = Model.GymClass.Name }, new { @class = "btn-lg btn-primary mb-6 rounded", onClick = "buttonClick()" })</p>
+            <p class="text-center">@Html.ActionLink("BOOK ANOTHER CLASS", "Index", "CalendarItems", new { fitnessClass = "ALL" }, new { @class = "btn-lg btn-primary mb-6 rounded", onClick = "buttonClick()" })</p>
             <br />
             <div class="hidden-xs win-width600">
                 <img width="600" src=@ViewBag.pic0 alt=@Model.GymClass.Name />

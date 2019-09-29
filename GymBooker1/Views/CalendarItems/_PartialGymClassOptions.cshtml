@@ -6,19 +6,19 @@
     int index = ViewBag.a.UserIds.IndexOf(ViewBag.strCurrentUserId);
     if (index != -1)
     {
-        <p class="mb-1 mt-1">You're in!</p>
-        @Html.ActionLink("Cancel", "CancelClass", new { id = ViewBag.a.Id }, new { @class = "btn btn-danger mb-6 rounded text-center ml-5 mr-5", onClick = "buttonClick()" })
+        <p id="@ViewBag.a.Id@ViewBag.screen-C" class="mb-1 mt-1">You're in!</p>
+        <button id="@ViewBag.a.Id@ViewBag.screen-CBut" class="btn btn-danger mb-6 rounded text-center ml-5 mr-5" type="button" onclick="CancelClassAJAX(@ViewBag.a.Id.ToString());">Cancel</button>        
     }
     else
     {
         if (ViewBag.numInClass >= ViewBag.a.MaxPeople)
         {
-            <p class="mb-1 mt-1">Fully Booked</p>
+            <p id="@ViewBag.a.Id@ViewBag.screen-C" class="mb-1 mt-1">Fully Booked</p>
         }
         else
         {
-            <p class="invisible mb-1 mt-1">-</p>
-            @Html.ActionLink("Book Now", "BookClass", new { id = ViewBag.a.Id }, new { @class = "btn btn-danger mb-6 rounded text-cente rml-5 mr-5", onClick = "buttonClick()" })
+            <p id="@ViewBag.a.Id@ViewBag.screen-C" class="mb-1 mt-1">&nbsp</p>
+            <button id="@ViewBag.a.Id@ViewBag.screen-CBut" class="btn btn-danger mb-6 rounded text-center ml-5 mr-5" type="button" onclick="BookClassAJAX(@ViewBag.a.Id.ToString());">Book Class</button>
         }
     }
 
@@ -29,36 +29,3 @@ else
 }
 @Html.ActionLink("Details", "ClassDescription", new { id = ViewBag.a.Id }, new { @class = "btn btn-primary mb-6 rounded text-center ml-5 mr-5", onClick = "buttonClick()" })
 
-
-
-
-@*@if (User.Identity.IsAuthenticated)
-    {
-        // show Booked! if booked and a Cancel button
-        var strCurrentUserId = ViewBag.UserId;
-        int index = a[j].UserIds.IndexOf(strCurrentUserId);
-        if (index != -1)
-        {
-            <p>You're in!</p>
-            @Html.ActionLink("Cancel class", "CancelClass", new { id = a[j].Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
-        }
-        else
-        {
-            int numInClass = a[j].UserIds == "" ? 0 : a[j].UserIds.Count(x => x == ',') + 1;
-            if (numInClass >= a[j].MaxPeople)
-            {
-                <p class="">Fully Booked</p>
-            }
-            else
-            {
-                <p class="invisible">-</p>
-                @Html.ActionLink("Book Now", "BookClass", new { id = a[j].Id }, new { @class = "btn btn-danger mb-6 rounded", onClick = "buttonClick()" })
-            }
-        }
-
-    }
-    else
-    {
-        @Html.ActionLink("Login to book", "../Account/Login", new { returnUrl = "/CalendarItems" }, new { @class = "btn btn-danger mb-6 rounded" })
-    }
-    @Html.ActionLink("Details", "ClassDescription", new { id = a[j].Id }, new { @class = "btn btn-primary mb-6 rounded", onClick = "buttonClick()" })*@

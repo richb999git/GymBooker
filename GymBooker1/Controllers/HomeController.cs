@@ -14,11 +14,11 @@ namespace GymBooker1.Controllers
         public ActionResult Index()
         {
             ViewBag.GymClasses = db.GymClasses.ToList();
-
-            ViewBag.cardioDesc = "Get fitter and burn calories. These classes are for anyone that loves music and energy.";
-            ViewBag.toneDesc = "Change the shape of your body by strengthening and conditioning your muscles.";
-            ViewBag.mindBodyDesc = "All rounder classes for wellbeing, core strength, flexibility and low impact conditioning.";
-            ViewBag.strengthDesc = "Feel stronger and fitter using functional kit such as battle ropes, assault bikes and kettlebells.";
+            
+            ViewBag.cardioDesc = CategoryDescs.GetCategoryDescs()[0];
+            ViewBag.toneDesc = CategoryDescs.GetCategoryDescs()[1];
+            ViewBag.mindBodyDesc = CategoryDescs.GetCategoryDescs()[2]; 
+            ViewBag.strengthDesc = CategoryDescs.GetCategoryDescs()[3];
 
             return View();
         }
