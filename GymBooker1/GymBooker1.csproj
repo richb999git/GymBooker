@@ -258,7 +258,6 @@
     <Content Include="Content\Images\Classes\Pilates2.jpg" />
     <Content Include="Content\Images\Classes\Pilates1.jpg" />
     <Content Include="Content\Images\Classes\Pilates3.jpg" />
-    <Content Include="Content\Images\Classes\Spin4.jpg" />
     <Content Include="Content\Images\Classes\Spin1.jpg" />
     <Content Include="Content\Images\Classes\Spin3.jpg" />
     <Content Include="Content\Images\Classes\Spin2.jpg" />
@@ -272,7 +271,6 @@
     <Content Include="Content\Images\Classes\Yoga1.jpg" />
     <Content Include="Content\Images\Classes\Yoga2.jpg" />
     <Content Include="Content\Images\Classes\Yoga3.jpg" />
-    <Content Include="Content\Images\Classes\Yoga4.jpg" />
     <Content Include="Content\Images\Classes\Zumba1.jpg" />
     <Content Include="Content\Images\Classes\Zumba2.jpg" />
     <Content Include="Content\Images\Classes\Zumba3.jpg" />
