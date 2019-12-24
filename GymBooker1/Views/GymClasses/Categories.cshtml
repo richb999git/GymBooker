@@ -20,9 +20,7 @@
     @{ var i = 0;}
     @foreach(var item in Model)
     {
-
-
-        string pic = "/Content/Images/Classes/" + ViewBag.pics[i];
+        string pic = ViewBag.pics[i];
         i++;
       
         <div class="inline-block">

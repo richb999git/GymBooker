@@ -53,8 +53,8 @@ namespace GymBooker1.Views
 
             var pics2 = GetPics.Get2Pics(gymClass.GymClass.Name);
 
-            ViewBag.pic0 = "/Content/Images/Classes/" + pics2[0];
-            ViewBag.pic1 = "/Content/Images/Classes/" + pics2[1];
+            ViewBag.pic0 = pics2[0];
+            ViewBag.pic1 = pics2[1];
 
             return View(gymClass); /// go to page showing confirmation of cancelled class
         }
@@ -113,8 +113,8 @@ namespace GymBooker1.Views
 
             var pics2 = GetPics.Get2Pics(gymClass.GymClass.Name);
 
-            ViewBag.pic0 = "/Content/Images/Classes/" + pics2[0];
-            ViewBag.pic1 = "/Content/Images/Classes/" + pics2[1];
+            ViewBag.pic0 = pics2[0];
+            ViewBag.pic1 = pics2[1];
 
             return View(gymClass); /// go to page showing confirmation of booking
 
@@ -145,8 +145,8 @@ namespace GymBooker1.Views
 
             var pics2 = GetPics.Get2Pics(gymClass.GymClass.Name);
 
-            ViewBag.pic0 = "/Content/Images/Classes/" + pics2[0];
-            ViewBag.pic1 = "/Content/Images/Classes/" + pics2[1];
+            ViewBag.pic0 = pics2[0];
+            ViewBag.pic1 = pics2[1];
 
             TempData["CurrentClass"] = gymClass.Id;
             return View(gymClass);

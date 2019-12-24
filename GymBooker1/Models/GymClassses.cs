@@ -114,25 +114,40 @@ namespace GymBooker1.Models
     public static class GetPics
     {
         public static string[] Get2Pics(string Name)
-        { 
+        {
             // show 2 pics from particular Gym class side by side (or only one on small screens)*@
             // use array for now
 
-            string[] circuits = new string[2] { "Circuits2.jpg", "Circuits3.jpg" };
-            string[] step = new string[2] { "Step2.jpg", "Step3.jpg" };
-            string[] boxfit = new string[2] { "BoxFit2.jpg", "BoxFit3.jpg" };
-            string[] zumba = new string[2] { "Zumba2.jpg", "Zumba3.jpg" };
-            string[] spin = new string[2] { "Spin2.jpg", "Spin3.jpg" };
-            string[] burnit = new string[2] { "BurnIt2.jpg", "BurnIt3.jpg" };
-            string[] combat = new string[2] { "Combat2.jpg", "Combat3.jpg" };
-            string[] abs = new string[2] { "AbsoluteAbs2.jpg", "AbsoluteAbs3.jpg" }; 
-            string[] lbt = new string[2] { "LegsBumsTums2.jpg", "LegsBumsTums3.jpg" };
-            string[] pump = new string[2] { "BodyPump2.jpg", "BodyPump3.jpg" };
-            string[] tone = new string[2] { "BodyTone2.jpg", "BodyTone3.jpg" };
-            string[] kettlebells = new string[2] { "Kettlebells2.jpg", "Kettlebells3.jpg" };
-            string[] yoga = new string[2] { "Yoga2.jpg", "Yoga3.jpg" };
-            string[] pilates = new string[2] { "Pilates2.jpg", "Pilates3.jpg" };
-            string[] strength = new string[2] { "Strength2.jpg", "Strength3.jpg" };
+            string[] circuits = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140340/GymBooker/Circuits2.jpg",
+                                                "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140342/GymBooker/Circuits3.jpg" };
+            string[] step = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141003/GymBooker/Step2.jpg",
+                                            "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141003/GymBooker/Step3.jpg" };
+            string[] boxfit = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140324/GymBooker/BoxFit2.jpg",
+                                              "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140326/GymBooker/BoxFit3.jpg" };
+            string[] zumba = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141003/GymBooker/Zumba2.jpg",
+                                             "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141003/GymBooker/Zumba3.jpg" };
+            string[] spin = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141003/GymBooker/Spin2.jpg",
+                                            "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141002/GymBooker/Spin3.jpg" };
+            string[] burnit = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140332/GymBooker/BurnIt2.jpg",
+                                              "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140334/GymBooker/BurnIt3.jpg" };
+            string[] combat = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140983/GymBooker/Combat2.jpg",
+                                              "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140983/GymBooker/Combat3.jpg" };
+            string[] abs = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140176/GymBooker/AbsoluteAbs2.jpg",
+                                           "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140187/GymBooker/AbsoluteAbs3.jpg" };
+            string[] lbt = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140993/GymBooker/LegsBumsTums2.jpg",
+                                           "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140994/GymBooker/LegsBumsTums3.jpg" };
+            string[] pump = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140199/GymBooker/BodyPump2.jpg",
+                                            "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140203/GymBooker/BodyPump3.jpg" };
+            string[] tone = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140213/GymBooker/BodyTone2.jpg",
+                                            "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140216/GymBooker/BodyTone3.jpg" };
+            string[] kettlebells = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140993/GymBooker/Kettlebells2.jpg",
+                                                   "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140993/GymBooker/Kettlebells3.jpg" };
+            string[] yoga = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141004/GymBooker/Yoga2.jpg",
+                                            "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141001/GymBooker/Yoga3.jpg" };
+            string[] pilates = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140993/GymBooker/Pilates2.jpg",
+                                               "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140993/GymBooker/Pilates3.jpg" };
+            string[] strength = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141003/GymBooker/Strength2.jpg",
+                                                "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141003/GymBooker/Strength3.jpg" };
             string[] pics = new string[2];
 
             switch (Name)
@@ -194,10 +209,21 @@ namespace GymBooker1.Models
         public static string[] GetCategoryPic(string category)
         {
 
-            string[] cardio = new string[7] { "BoxFit1.jpg", "BurnIt1.jpg", "Circuits1.jpg", "Combat1.jpg", "Spin1.jpg", "Step1.jpg", "Zumba1.jpg" };
-            string[] tone = new string[5] { "AbsoluteAbs1.jpg", "BodyPump1.jpg", "BodyTone1.jpg", "Kettlebells1.jpg", "LegsBumsTums1.jpg" };
-            string[] mind = new string[2] { "Pilates1.jpg", "Yoga1.jpg" };
-            string[] strength = new string[1] { "Strength1.jpg" };
+            string[] cardio = new string[7] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140319/GymBooker/BoxFit1.jpg",
+                                          "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140329/GymBooker/BurnIt1.jpg",
+                                          "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140337/GymBooker/Circuits1.jpg",
+                                          "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140983/GymBooker/Combat1.jpg",
+                                          "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141002/GymBooker/Spin1.jpg",
+                                          "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141003/GymBooker/Step1.jpg",
+                                          "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141002/GymBooker/Zumba1.jpg" };
+            string[] tone = new string[5] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140135/GymBooker/AbsoluteAbs1.jpg",
+                                        "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140197/GymBooker/BodyPump1.jpg",
+                                        "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140211/GymBooker/BodyTone1.jpg",
+                                        "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140993/GymBooker/Kettlebells1.jpg",
+                                        "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140994/GymBooker/LegsBumsTums3.jpg" };
+            string[] mind = new string[2] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577140994/GymBooker/Pilates1.jpg",
+                                        "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141004/GymBooker/Yoga1.jpg" };
+            string[] strength = new string[1] { "https://res.cloudinary.com/cloudstoragerb/image/upload/v1577141003/GymBooker/Strength1.jpg" };
             string[] pics = new string[20];
 
             switch (category)
@@ -222,6 +248,10 @@ namespace GymBooker1.Models
         }
 
     }
+
+    
+
+
 
 
     public static class CategoryDescs

@@ -226,55 +226,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\Classes\AbsoluteAbs3.jpg" />
-    <Content Include="Content\Images\Classes\AbsoluteAbs2.jpg" />
-    <Content Include="Content\Images\Classes\AbsoluteAbs1.jpg" />
-    <Content Include="Content\Images\Classes\BodyPump1.jpg" />
-    <Content Include="Content\Images\Classes\BodyPump2.jpg" />
-    <Content Include="Content\Images\Classes\BodyPump3.jpg" />
-    <Content Include="Content\Images\Classes\BodyTone1.jpg" />
-    <Content Include="Content\Images\Classes\BodyTone2.jpg" />
-    <Content Include="Content\Images\Classes\BodyTone3.jpg" />
-    <Content Include="Content\Images\Classes\BoxFit1.jpg" />
-    <Content Include="Content\Images\Classes\BoxFit2.jpg" />
-    <Content Include="Content\Images\Classes\BoxFit3.jpg" />
-    <Content Include="Content\Images\Classes\BurnIt1.jpg" />
-    <Content Include="Content\Images\Classes\BurnIt2.jpg" />
-    <Content Include="Content\Images\Classes\BurnIt3.jpg" />
-    <Content Include="Content\Images\Classes\Circuits1.jpg" />
-    <Content Include="Content\Images\Classes\Circuits2.jpg" />
-    <Content Include="Content\Images\Classes\Circuits3.jpg" />
-    <Content Include="Content\Images\Classes\Combat1.jpg" />
-    <Content Include="Content\Images\Classes\Combat2.jpg" />
-    <Content Include="Content\Images\Classes\Combat3.jpg" />
-    <Content Include="Content\Images\Classes\Dumbells1.jpg" />
-    <Content Include="Content\Images\Classes\Dumbells2.jpg" />
-    <Content Include="Content\Images\Classes\Kettlebells1.jpg" />
-    <Content Include="Content\Images\Classes\Kettlebells2.jpg" />
-    <Content Include="Content\Images\Classes\Kettlebells3.jpg" />
-    <Content Include="Content\Images\Classes\LegsBumsTums1.jpg" />
-    <Content Include="Content\Images\Classes\LegsBumsTums2.jpg" />
-    <Content Include="Content\Images\Classes\LegsBumsTums3.jpg" />
-    <Content Include="Content\Images\Classes\Pilates2.jpg" />
-    <Content Include="Content\Images\Classes\Pilates1.jpg" />
-    <Content Include="Content\Images\Classes\Pilates3.jpg" />
-    <Content Include="Content\Images\Classes\Spin1.jpg" />
-    <Content Include="Content\Images\Classes\Spin3.jpg" />
-    <Content Include="Content\Images\Classes\Spin2.jpg" />
-    <Content Include="Content\Images\Classes\Step1.jpg" />
-    <Content Include="Content\Images\Classes\Step2.jpg" />
-    <Content Include="Content\Images\Classes\Step3.jpg" />
-    <Content Include="Content\Images\Classes\Strength4.jpg" />
-    <Content Include="Content\Images\Classes\Strength1.jpg" />
-    <Content Include="Content\Images\Classes\Strength2.jpg" />
-    <Content Include="Content\Images\Classes\Strength3.jpg" />
-    <Content Include="Content\Images\Classes\Yoga1.jpg" />
-    <Content Include="Content\Images\Classes\Yoga2.jpg" />
-    <Content Include="Content\Images\Classes\Yoga3.jpg" />
-    <Content Include="Content\Images\Classes\Zumba1.jpg" />
-    <Content Include="Content\Images\Classes\Zumba2.jpg" />
-    <Content Include="Content\Images\Classes\Zumba3.jpg" />
-    <Content Include="Content\Videos\b.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -403,6 +354,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\Classes\" />
+    <Folder Include="Content\Videos\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
